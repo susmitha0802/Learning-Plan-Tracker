@@ -1,0 +1,15 @@
+.message {
+    padding: 10px;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+.error {
+    background-color: lightcoral;
+    color: brown;
+}
+
+.success {
+    background-color: lightblue;
+    color: blue;
+}

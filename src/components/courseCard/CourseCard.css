@@ -1,0 +1,7 @@
+.card-container:hover {
+    box-shadow: 5px 5px 50px #ccc;
+}
+
+.card-container img {
+    height: 500px;
+}
