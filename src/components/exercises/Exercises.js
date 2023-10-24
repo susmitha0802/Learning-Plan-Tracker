@@ -1,6 +1,6 @@
 import { Formik, Form, Field } from "formik";
 
-export const Exercises = ({ id, question, status }) => {
+export const Exercises = ({ id, question, status, count }) => {
     const initialValues = { status: status }
 
     return (
@@ -11,7 +11,8 @@ export const Exercises = ({ id, question, status }) => {
                 <label>
                     <Field
                         type="checkbox"
-                        name="status" />
+                        name="status"
+                    />
                     {`Exercise ${id} :`}
                     {question.split("\n").map((i, key) => {
                         return <div key={key}>{i}</div>;

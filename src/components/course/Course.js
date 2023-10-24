@@ -5,6 +5,8 @@ import { Image, ProgressBar } from 'react-bootstrap';
 import { Topic } from '../topic/Topic';
 import { useEffect } from 'react';
 import { getExercises } from '../../utils/exercises';
+import "./Course.css";
+import "../../App.css";
 
 export const Course = () => {
     const params = useParams();
@@ -39,8 +41,8 @@ export const Course = () => {
     }
 
     return (
-        <div className="mx-5 p-5" style={{ backgroundColor: "black", color: "white" }}>
-            <div className="mx-5 p-5 d-flex align-items-center justify-content-center">
+        <div className="body course-header">
+            <div className="d-flex align-items-center justify-content-center">
                 <Image className="w-25 mx-5 px-5" src={course.logo} />
                 <div className="w-50 mx-5 px-5">
                     <h1>Learn {course.name} </h1>
@@ -49,17 +51,19 @@ export const Course = () => {
                     <ProgressBar now={60} label={`${60}%`} />
                 </div>
             </div>
-            <h1>Syllabus</h1>
-            {
-                course.topics.map(topic => {
-                    return <Topic
-                        key={topic.id}
-                        id={topic.id}
-                        name={topic.name}
-                        resource={topic.resource}
-                        exercises={topic.exercises}
-                    />
-                })}
+            <div className="syllabus">
+                <h1 className="pb-3">Syllabus</h1>
+                {
+                    course.topics.map(topic => {
+                        return <Topic
+                            key={topic.id}
+                            id={topic.id}
+                            name={topic.name}
+                            resource={topic.resource}
+                            exercises={topic.exercises}
+                        />
+                    })}
+            </div>
         </div>
     )
 }

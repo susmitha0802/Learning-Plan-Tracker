@@ -1,25 +1,35 @@
 import { Accordion } from 'react-bootstrap';
-import { BsBookHalf } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { Exercises } from '../exercises/Exercises';
+import { BsBookHalf } from "react-icons/bs";
+import { RiTodoFill } from "react-icons/ri";
+import "./Topic.css";
 
 export const Topic = ({ id, name, resource, exercises }) => {
+    const count = 0;
     return (
         <Accordion key={id}>
             <Accordion.Item eventKey={id}>
-                <Accordion.Header>{name}</Accordion.Header>
+                <Accordion.Header><h5>{name}</h5></Accordion.Header>
                 <Accordion.Body>
-                    <div>
-                        <BsBookHalf /> <Link to={resource}>Lesson</Link>
+                    <div className='mx-3 d-flex align-items-center'>
+                        <BsBookHalf className="size" />
+                        <Link className="text-decoration-none px-3 size" to={resource} target="_blank">
+                            <span>Lesson</span>
+                        </Link>
                     </div>
-                    {exercises && <div>
-                        <b>Exercises</b>
+                    {exercises && <div className="p-3">
+                        <div className='d-flex align-items-center'>
+                            <RiTodoFill className="size" />
+                            <span className='px-3 size'>Exercises</span>
+                        </div>
                         {exercises.map(exercise => {
                             return <Exercises
                                 key={exercise.id}
                                 id={exercise.id}
                                 question={exercise.question}
                                 status={exercise.status}
+                                count={count}
                             />
                         })}
                     </div>
