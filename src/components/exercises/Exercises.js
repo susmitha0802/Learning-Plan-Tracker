@@ -1,12 +1,23 @@
-import { Form } from 'react-bootstrap';
+import { Formik, Form, Field } from "formik";
 
-export const Exercises = ({ id, question }) => {
+export const Exercises = ({ id, question, status }) => {
+    const initialValues = { status: status }
+
     return (
-        <Form>
-            <Form.Check
-                type="checkbox"
-                label={`${id}. ${question}`}
-            />
-        </Form>
+        <Formik
+            initialValues={initialValues}
+        >
+            <Form>
+                <label>
+                    <Field
+                        type="checkbox"
+                        name="status" />
+                    {`Exercise ${id} :`}
+                    {question.split("\n").map((i, key) => {
+                        return <div key={key}>{i}</div>;
+                    })}
+                </label>
+            </Form>
+        </Formik>
     )
 }
