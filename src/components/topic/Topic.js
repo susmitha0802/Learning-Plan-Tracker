@@ -3,7 +3,6 @@ import { BsBookHalf } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { Exercises } from '../exercises/Exercises';
 
-
 export const Topic = ({ id, name, resource, exercises }) => {
     return (
         <Accordion key={id}>
@@ -20,11 +19,9 @@ export const Topic = ({ id, name, resource, exercises }) => {
                                 key={exercise.id}
                                 id={exercise.id}
                                 question={exercise.question}
+                                status={exercise.status}
                             />
-                            // const text = e.question.split('\n').map((str, index) => <React.Fragment key={index}>{str}<br /></React.Fragment>);
-                            // console.log(text)
                         })}
-
                     </div>
                     }
                 </Accordion.Body>
