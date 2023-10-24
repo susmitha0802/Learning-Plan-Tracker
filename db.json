@@ -11,7 +11,7 @@
                     "id": 1,
                     "name": "Introduction",
                     "resource": "https://www.codecademy.com/courses/introduction-to-javascript/informationals/learn-javascript-welcome",
-                    "status" : false
+                    "status": false
                 },
                 {
                     "id": 2,
@@ -34,17 +34,17 @@
                             "status": false
                         },
                         {
-                            "id": 4, 
+                            "id": 4,
                             "question": "Using if/else if/else write a program that takes an input x (1-7) and prints corresponding weekday (1-Sunday etc). If input is invalid print invalid input.",
                             "status": false
                         },
                         {
                             "id": 5,
-                            "question": "Solve question 4 using switch case",
+                            "question": "Solve exercise 4 using switch case",
                             "status": false
                         }
                     ],
-                    "status" : false
+                    "status": false
                 },
                 {
                     "id": 3,
@@ -81,7 +81,6 @@
                             "question": "Create IIFE which will accept a string as argument and return the reversed string.",
                             "status": false
                         }
-
                     ],
                     "status": false
                 },
@@ -220,7 +219,7 @@
                     "exercises": [
                         {
                             "id": 1,
-                            "question": "1. Solve https://www.hackerrank.com/contests/javascript-week2/challenges/js-callbacks",
+                            "question": "Solve https://www.hackerrank.com/contests/javascript-week2/challenges/js-callbacks",
                             "status": false
                         }
                     ],
@@ -244,12 +243,12 @@
                         },
                         {
                             "id": 2,
-                            "question": "Using promise to create a delayedLowerCase function which will transform a string to lower case after 5 seconds. Ex Input: \"BEAUTIFUL CODE\" Output: \"beautiful code\"",
+                            "question": "Using promise to create a delayedLowerCase function which will transform a string to lower case after 5 seconds.\n Ex Input: \"BEAUTIFUL CODE\" Output: \"beautiful code\"",
                             "status": false
                         },
                         {
                             "id": 3,
-                            "question": "Briefly explain Promise Chaining. For the above created delayedLowerCase function chain a promise which will print the string and its length: Ex: Input: \"Beautiful Code\" Output: \"beautiful code - 14\"",
+                            "question": "Briefly explain Promise Chaining. For the above created delayedLowerCase function chain a promise which will print the string and its length.\n Ex: Input: \"Beautiful Code\" Output: \"beautiful code - 14\"",
                             "status": false
                         }
                     ],
@@ -268,7 +267,7 @@
                     "exercises": [
                         {
                             "id": 1,
-                            "question": "Rewrite the below using Async-Await syntax\\nfunction getProcessedData(url) {\\nreturn downloadData(url) // returns a promise\\n.catch(e => {\\nreturn downloadFallbackData(url) // returns a promise\\n})\\n.then(v => {\\nreturn processDataInWorker(v) // returns a promise\\n})\\n}",
+                            "question": "Rewrite the below using Async-Await syntax\nfunction getProcessedData(url) {\n return downloadData(url) // returns a promise\n.catch(e => {\nreturn downloadFallbackData(url) // returns a promise\n})\n.then(v => {\nreturn processDataInWorker(v) // returns a promise\n})\n}",
                             "status": false
                         }
                     ],
@@ -281,7 +280,7 @@
                     "status": false
                 }
             ]
-        }, 
+        },
         {
             "id": 2,
             "name": "React",
@@ -293,13 +292,13 @@
                     "id": 1,
                     "name": "Quick Start",
                     "resource": "https://react.dev/learn",
-                    "status" : false
+                    "status": false
                 },
                 {
                     "id": 2,
                     "name": "Installation",
                     "resource": "https://react.dev/learn/installation",
-                    "status" : false
+                    "status": false
                 },
                 {
                     "id": 3,
@@ -308,7 +307,7 @@
                     "exercises": [
                         {
                             "id": 1,
-                            "question": "Create a component called Greetings which takes props and renders them on screen. Use this component in <App />\\n - <Greetings /> should take a prop name and display Hello {prop}, Good Morning/Afternoon/Evening based on time.",
+                            "question": "Create a component called Greetings which takes props and renders them on screen. Use this component in <App />\n - <Greetings /> should take a prop name and display Hello {prop}, Good Morning/Afternoon/Evening based on time.",
                             "status": false
                         },
                         {
@@ -326,7 +325,7 @@
                     "exercises": [
                         {
                             "id": 1,
-                            "question": "1. Build a basic signup form which takes name, email, password and confirm password fields.\n2. Add validations on submit button, validations are:\n- no field should be empty\n- password and confirm password should be same\n- email should have @ and . symbols in it.\n3. Show errors if the validations fail\nValues entered in the input fields should be stored in state.\nError values should not be stored in state but should be calculated from above state.\n",
+                            "question": "i. Build a basic signup form which takes name, email, password and confirm password fields.\nii. Add validations on submit button, validations are:\n- no field should be empty\n- password and confirm password should be same\n- email should have @ and . symbols in it.\niii. Show errors if the validations fail\nValues entered in the input fields should be stored in state.\nError values should not be stored in state but should be calculated from above state.\n",
                             "status": false
                         }
                     ],
@@ -393,7 +392,7 @@
                     "exercises": [
                         {
                             "id": 1,
-                            "question": "Integrate react router to an app and have the following links. Each link should have its own component that occupies the full height and width of screen\n1. /home/:username - Should have the Greetings component from exercises 1 with default prop username from url,default value is \"User\"\n2. /login - Should have a login form from previous exercises\n3. /counter - Should have the counter component from exercises 2\n",
+                            "question": "Integrate react router to an app and have the following links. Each link should have its own component that occupies the full height and width of screen\ni. /home/:username - Should have the Greetings component from exercises 1 with default prop username from url,default value is \"User\"\nii. /login - Should have a login form from previous exercises\niii. /counter - Should have the counter component from previous exercises\n",
                             "status": false
                         }
                     ],
