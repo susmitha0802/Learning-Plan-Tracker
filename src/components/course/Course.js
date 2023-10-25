@@ -1,12 +1,15 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { Image, ProgressBar } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import { Topic } from '../topic/Topic';
 import { useEffect } from 'react';
-import { getExercises } from '../../utils/exercises';
+import { getTotalExercises } from '../../utils/total';
+import { CompletedProvider } from '../../contexts/CompletedContext';
+import { Progress } from '../progress/Progress';
 import "./Course.css";
 import "../../App.css";
+
 
 export const Course = () => {
     const params = useParams();
@@ -36,34 +39,37 @@ export const Course = () => {
 
     var totalExercises = 0;
     if (course?.topics) {
-        totalExercises = getExercises(0, course?.topics);
-        console.log(`total ${totalExercises}`);
+        totalExercises = getTotalExercises(0, course?.topics);
     }
 
     return (
-        <div className="body course-header">
-            <div className="d-flex align-items-center justify-content-center">
-                <Image className="w-25 mx-5 px-5" src={course.logo} />
-                <div className="w-50 mx-5 px-5">
-                    <h1>Learn {course.name} </h1>
-                    <p>{course.caption}</p>
-                    <p>Course Progress</p>
-                    <ProgressBar now={60} label={`${60}%`} />
+        <CompletedProvider>
+            <div className="body course-header">
+                <div className="d-flex align-items-center justify-content-center">
+                    <Image className="w-25 mx-5 px-5" src={course.logo} />
+                    <div className="w-50 mx-5 px-5">
+                        <h1 className="my-4">Learn {course.name} </h1>
+                        <p className="mb-4 size">{course.caption}</p>
+                        <p className="mb-4 size">Course Progress</p>
+                        <Progress name={course.name} total={totalExercises} />
+                    </div>
+                </div>
+                <div className="syllabus">
+                    <h1 className="pb-3">Syllabus</h1>
+                    {
+                        course.topics.map(topic => {
+                            return <Topic
+                                key={topic.id}
+                                id={topic.id}
+                                name={topic.name}
+                                resource={topic.resource}
+                                exercises={topic.exercises}
+                                total={totalExercises}
+                            />
+                        })
+                    }
                 </div>
             </div>
-            <div className="syllabus">
-                <h1 className="pb-3">Syllabus</h1>
-                {
-                    course.topics.map(topic => {
-                        return <Topic
-                            key={topic.id}
-                            id={topic.id}
-                            name={topic.name}
-                            resource={topic.resource}
-                            exercises={topic.exercises}
-                        />
-                    })}
-            </div>
-        </div>
+        </CompletedProvider>
     )
 }
