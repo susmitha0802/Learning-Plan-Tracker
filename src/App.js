@@ -11,7 +11,6 @@ import { UpdateProfile } from "./components/auth/UpdateProfile"
 import { Courses } from "./components/courses/Courses";
 import { Course } from "./components/course/Course";
 import { Mentor } from "./components/mentor/Mentor";
-import "./App.css";
 
 const queryClient = new QueryClient();
 

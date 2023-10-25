@@ -1,4 +1,4 @@
-export const getExercises = (total, topics) => {
+export const getTotalExercises = (total, topics) => {
     topics.map(topic => {
         if (topic.exercises) {
             total = total + topic.exercises.length;

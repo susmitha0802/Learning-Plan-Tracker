@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import { Row } from 'react-bootstrap';
 import { CourseCard } from '../courseCard/CourseCard';
+import "../../App.css";
 
 export const Courses = () => {
 
@@ -19,8 +20,8 @@ export const Courses = () => {
   }
 
   return (
-    <>
-      <h1 className="m-5">My Courses</h1>
+    <div className="body">
+      <h1 className="p-5">My Courses</h1>
       <Row xs={1} lg={3}>
         {
           courses?.map(course => {
@@ -33,6 +34,6 @@ export const Courses = () => {
           })
         }
       </Row>
-    </>
+    </div>
   );
 }

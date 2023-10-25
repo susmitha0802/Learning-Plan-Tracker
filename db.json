@@ -21,27 +21,27 @@
                         {
                             "id": 1,
                             "question": "Write a condition that returns true for == but not === and explain why",
-                            "status": false
+                            "status": true
                         },
                         {
                             "id": 2,
                             "question": "Write a single if condition that returns true if x is greater than or equal to 10 and is even, or if x is less than 10 and is odd",
-                            "status": false
+                            "status": true
                         },
                         {
                             "id": 3,
                             "question": "Use a ternary operator to assign 'odd' or 'even' to a variable called 'output' by checking if a variable 'x' is odd or even",
-                            "status": false
+                            "status": true
                         },
                         {
                             "id": 4,
                             "question": "Using if/else if/else write a program that takes an input x (1-7) and prints corresponding weekday (1-Sunday etc). If input is invalid print invalid input.",
-                            "status": false
+                            "status": true
                         },
                         {
                             "id": 5,
                             "question": "Solve exercise 4 using switch case",
-                            "status": false
+                            "status": true
                         }
                     ],
                     "status": false
@@ -52,32 +52,32 @@
                     "resource": "https://www.codecademy.com/courses/introduction-to-javascript/lessons/functions/exercisess/intro-to-functions",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 6,
                             "question": "What is difference between Function Declaration and Function Expression?",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 7,
                             "question": "Write down the syntax rules of an Arrow function.",
                             "status": false
                         },
                         {
-                            "id": 3,
+                            "id": 8,
                             "question": "Using Function Declaration create a function which will add two numbers.",
                             "status": false
                         },
                         {
-                            "id": 4,
+                            "id": 9,
                             "question": "Using Function Expression create a function which will multiply two numbers.",
                             "status": false
                         },
                         {
-                            "id": 5,
+                            "id": 10,
                             "question": "Using Arrow Function create a function to subtract two numbers.",
                             "status": false
                         },
                         {
-                            "id": 6,
+                            "id": 11,
                             "question": "Create IIFE which will accept a string as argument and return the reversed string.",
                             "status": false
                         }
@@ -90,7 +90,7 @@
                     "resource": "https://www.codecademy.com/courses/introduction-to-javascript/lessons/scope/exercisess/scope",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 12,
                             "question": "Guess the output - http://nicholasjohnson.com/javascript/javascript-for-programmers/exercisess/closure/",
                             "status": false
                         }
@@ -103,17 +103,17 @@
                     "resource": "https://www.codecademy.com/courses/introduction-to-javascript/lessons/arrays/exercisess/arrays",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 13,
                             "question": "Is array passed by value or reference to a function. Justify your answer with an example.",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 14,
                             "question": "Write a Javascript function to clone an array without using loops.",
                             "status": false
                         },
                         {
-                            "id": 3,
+                            "id": 15,
                             "question": "Breifly explain the shift, unshit, slice, splice, pop Array methods with examples",
                             "status": false
                         }
@@ -126,12 +126,12 @@
                     "resource": "https://www.codecademy.com/courses/introduction-to-javascript/lessons/loops/exercisess/loops",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 16,
                             "question": "Using a for loop output the elements in reverse order [1,2,3,4,5]",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 17,
                             "question": "What is the difference between for .. of and for .. in",
                             "status": false
                         }
@@ -144,17 +144,17 @@
                     "resource": "https://www.codecademy.com/courses/introduction-to-javascript/lessons/higher-order-functions/exercisess/introduction",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 18,
                             "question": "Use map function to return the squares of the items in the below array [2, 4, 6, 8, 10].",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 19,
                             "question": "Use filter function array to extract strings from the below array [1, 'two', 3, 'four', 5, 'Six', 7, 'Eight', 9, 'Ten'].",
                             "status": false
                         },
                         {
-                            "id": 3,
+                            "id": 20,
                             "question": "What are arguments of the reduce function. Use reduce function to return the sum of the items in the array [1, 3, 5, 7, 9].",
                             "status": false
                         }
@@ -167,27 +167,27 @@
                     "resource": "https://www.codecademy.com/courses/introduction-to-javascript/lessons/objects/exercisess/intro",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 21,
                             "question": "Write a function which takes an object as input and print out its properties",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 22,
                             "question": "How to delete property 'a' from object x={'a':1,'b':2}",
                             "status": false
                         },
                         {
-                            "id": 3,
+                            "id": 23,
                             "question": "Given x = {a:'1'}; y = x; does changing y.a change x.a? why? (looking for the answer - objects are pass by reference)",
                             "status": false
                         },
                         {
-                            "id": 4,
+                            "id": 24,
                             "question": "Copy x = {'a':1} to a variable y without creating a reference to x",
                             "status": false
                         },
                         {
-                            "id": 5,
+                            "id": 25,
                             "question": "Write a function to check if two objects are equal",
                             "status": false
                         }
@@ -200,12 +200,12 @@
                     "resource": "https://www.javascripttutorial.net/javascript-class/",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 26,
                             "question": "Implement Queue using javascript class. It should have the enqueue, dequeue, front, isEmpty methods",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 27,
                             "question": "Explain instanceOf operator with an example.",
                             "status": false
                         }
@@ -218,7 +218,7 @@
                     "resource": "https://www.javascripttutorial.net/javascript-callback/",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 28,
                             "question": "Solve https://www.hackerrank.com/contests/javascript-week2/challenges/js-callbacks",
                             "status": false
                         }
@@ -237,17 +237,17 @@
                     "resource": "https://www.youtube.com/watch?v=YiYtwbnPfkY",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 29,
                             "question": "Briefly explain different Promise states.",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 30,
                             "question": "Using promise to create a delayedLowerCase function which will transform a string to lower case after 5 seconds.\n Ex Input: \"BEAUTIFUL CODE\" Output: \"beautiful code\"",
                             "status": false
                         },
                         {
-                            "id": 3,
+                            "id": 31,
                             "question": "Briefly explain Promise Chaining. For the above created delayedLowerCase function chain a promise which will print the string and its length.\n Ex: Input: \"Beautiful Code\" Output: \"beautiful code - 14\"",
                             "status": false
                         }
@@ -266,7 +266,7 @@
                     "resource": "https://app.pluralsight.com/id/signin/?redirectTo=https%3A%2F%2Fapp.pluralsight.com%2Flibrary%2Fcourses%2Fjavascript-promises-async-programming%2Ftable-of-contents",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 32,
                             "question": "Rewrite the below using Async-Await syntax\nfunction getProcessedData(url) {\n return downloadData(url) // returns a promise\n.catch(e => {\nreturn downloadFallbackData(url) // returns a promise\n})\n.then(v => {\nreturn processDataInWorker(v) // returns a promise\n})\n}",
                             "status": false
                         }
@@ -324,7 +324,7 @@
                     "resource": "https://react.dev/learn/adding-interactivity",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 3,
                             "question": "i. Build a basic signup form which takes name, email, password and confirm password fields.\nii. Add validations on submit button, validations are:\n- no field should be empty\n- password and confirm password should be same\n- email should have @ and . symbols in it.\niii. Show errors if the validations fail\nValues entered in the input fields should be stored in state.\nError values should not be stored in state but should be calculated from above state.\n",
                             "status": false
                         }
@@ -337,12 +337,12 @@
                     "resource": "https://react.dev/learn/managing-state",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 4,
                             "question": "Explain when to lift state up to a parent component.",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 5,
                             "question": "Lift the state from all above components to a component called Parent.\n- Call <Parent /> in App and all state should be managed in Parent\n- state updaters should be sent as props to children and should be updated from children.",
                             "status": false
                         }
@@ -355,12 +355,12 @@
                     "resource": "https://react.dev/learn/escape-hatches",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 6,
                             "question": "Explain why functional components are better than class based components",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 7,
                             "question": "Create a component called Counter that displays a number on screen with two buttons ( +, - ).\n- On clicking of those buttons, the number on screen should increase or decrease by 1.\n- Default value of that number should be 0 and parent should be able to override default value using as prop called defaultValue.",
                             "status": false
                         }
@@ -373,12 +373,12 @@
                     "resource": "https://react.dev/reference/react#context-hooks",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 8,
                             "question": "In the signup form you built above:\n- Have a switch out side the form component\n- If that switch is toggled input field for username should be shown. (Validations should be present for username)\n- If the switch is toggled again username shouldn't be shown. (Validations shouldn't be present for username)\nState for switch toggling should be in a context and shared using useContext between form and switch",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 9,
                             "question": "Explain why context is useful even though we can lift state to parent and update it from child",
                             "status": false
                         }
@@ -391,7 +391,7 @@
                     "resource": "https://www.youtube.com/playlist?list=PLC3y8-rFHvwjkxt8TOteFdT_YmzwpBlrG",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 10,
                             "question": "Integrate react router to an app and have the following links. Each link should have its own component that occupies the full height and width of screen\ni. /home/:username - Should have the Greetings component from exercises 1 with default prop username from url,default value is \"User\"\nii. /login - Should have a login form from previous exercises\niii. /counter - Should have the counter component from previous exercises\n",
                             "status": false
                         }
@@ -404,12 +404,12 @@
                     "resource": "https://www.youtube.com/playlist?list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 11,
                             "question": "Make a get call using useQuery to https://official-joke-api.appspot.com/random_joke and show jokes on screen.",
                             "status": false
                         },
                         {
-                            "id": 2,
+                            "id": 12,
                             "question": "Make a post call using useMutation from a free REST API service or mock API.",
                             "status": false
                         }
@@ -422,7 +422,7 @@
                     "resource": "https://recoiljs.org/",
                     "exercises": [
                         {
-                            "id": 1,
+                            "id": 13,
                             "question": "https://github.com/beautiful-code/ecommerce-react-exercises",
                             "status": false
                         }
