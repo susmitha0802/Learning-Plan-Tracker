@@ -3,8 +3,9 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Alert, Button, Card, Form} from "react-bootstrap";
+import { Alert, Button, Card, Form } from "react-bootstrap";
 import "./Auth.css";
+import { useUser } from "../../contexts/UserContext";
 
 const initialValues = {
   email: "",
@@ -26,6 +27,7 @@ const validationSchema = Yup.object({
 
 export const Signup = () => {
   const { signup } = useAuth();
+  const { addUserToLocalStorage } = useUser();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -39,8 +41,10 @@ export const Signup = () => {
       setError("");
       setLoading(true);
       await signup(values.email, values.password);
+      addUserToLocalStorage(values.email);
       navigate("/courses");
-    } catch {
+    }
+    catch {
       setError("Failed to create an account");
     }
 
@@ -48,12 +52,13 @@ export const Signup = () => {
   }
 
   return (
-    <div className="m-lg-5 p-lg-5 d-flex align-items-center flex-column">
-      <Card className="mx-lg-5 my-lg-3 p-5">
-        <Card.Body>
+    <>
+      <div className="m-lg-5 p-lg-5 d-flex align-items-center flex-column">
+        <Card className="mx-lg-5 my-lg-3 p-5">
+          <Card.Body>
             <h2 className="mb-4">Create Account</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            <Formik 
+            <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
@@ -62,13 +67,13 @@ export const Signup = () => {
                 <Form.Group>
                   <Form.Label htmlFor="email">Email</Form.Label>
                   <div className="mb-3">
-                    <Field 
-                      className="w-100" 
-                      type="email" 
-                      name="email" 
-                      id="email" 
-                      placeholder="Enter your email" 
-                      autoComplete="true" 
+                    <Field
+                      className="w-100"
+                      type="email"
+                      name="email"
+                      id="email"
+                      placeholder="Enter your email"
+                      autoComplete="true"
                     />
                     <ErrorMessage component="div" className="message error" name="email" />
                   </div>
@@ -76,13 +81,13 @@ export const Signup = () => {
                 <Form.Group>
                   <Form.Label htmlFor="password">Password</Form.Label>
                   <div className="mb-3">
-                    <Field 
-                      className="w-100" 
-                      type="password" 
-                      name="password" 
-                      id="password" 
-                      placeholder="Enter your password" 
-                      autoComplete="true" 
+                    <Field
+                      className="w-100"
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="Enter your password"
+                      autoComplete="true"
                     />
                     <ErrorMessage component="div" className="message error" name="password" />
                   </div>
@@ -90,13 +95,13 @@ export const Signup = () => {
                 <Form.Group>
                   <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
                   <div className="mb-3">
-                    <Field 
-                      className="w-100" 
-                      type="password" 
-                      name="confirmPassword" 
-                      id="confirmPassword" 
-                      placeholder="Confirm your password" 
-                      autoComplete="true" 
+                    <Field
+                      className="w-100"
+                      type="password"
+                      name="confirmPassword"
+                      id="confirmPassword"
+                      placeholder="Confirm your password"
+                      autoComplete="true"
                     />
                     <ErrorMessage component="div" className="message error" name="confirmPassword" />
                   </div>
@@ -104,11 +109,12 @@ export const Signup = () => {
                 <Button disabled={loading} className="w-100" type="submit">Sign Up</Button>
               </FormikForm>
             </Formik>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Login</Link>
+          </Card.Body>
+        </Card>
+        <div className="w-100 text-center mt-2">
+          Already have an account? <Link to="/login">Login</Link>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

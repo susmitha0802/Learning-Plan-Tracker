@@ -8,7 +8,6 @@ export const useCompleted = () => {
 
 export const CompletedProvider = ({ children }) => {
 
-    // localStorage.setItem(completedExercises, [])
     const [count, setCount] = useState(0);
     const [completedExercises, setCompletedExercises] = useState([]);
 

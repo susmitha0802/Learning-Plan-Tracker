@@ -11,6 +11,10 @@ import "./Course.css";
 import "../../App.css";
 
 
+import { createContext } from 'react';
+export const CourseContext = createContext();
+
+
 export const Course = () => {
     const params = useParams();
     const courseId = params.courseId;
@@ -58,14 +62,15 @@ export const Course = () => {
                     <h1 className="pb-3">Syllabus</h1>
                     {
                         course.topics.map(topic => {
-                            return <Topic
-                                key={topic.id}
-                                id={topic.id}
-                                name={topic.name}
-                                resource={topic.resource}
-                                exercises={topic.exercises}
-                                total={totalExercises}
-                            />
+                            return <CourseContext.Provider key={topic.id} value={course.id}>
+                                <Topic
+                                    id={topic.id}
+                                    name={topic.name}
+                                    resource={topic.resource}
+                                    exercises={topic.exercises}
+                                    total={totalExercises}
+                                />
+                            </CourseContext.Provider>
                         })
                     }
                 </div>

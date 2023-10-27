@@ -3,13 +3,9 @@ import { Link } from 'react-router-dom';
 import { Exercises } from '../exercises/Exercises';
 import { BsBookHalf } from "react-icons/bs";
 import { RiTodoFill } from "react-icons/ri";
-import { useCompleted } from '../../contexts/CompletedContext';
 import "../../App.css";
 
-
 export const Topic = ({ id, name, resource, exercises, total }) => {
-
-    const { completedExercises, handleCheckboxChange } = useCompleted();
 
     return (
         <Accordion key={id}>
@@ -32,8 +28,7 @@ export const Topic = ({ id, name, resource, exercises, total }) => {
                                 key={exercise.id}
                                 id={exercise.id}
                                 question={exercise.question}
-                                checked={completedExercises.includes(exercise.id)}
-                                onChange={() => handleCheckboxChange(exercise.id)}
+                                topicId={id}
                             />
                         })}
                     </div>
