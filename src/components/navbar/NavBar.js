@@ -1,8 +1,8 @@
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Navbar, Container, Nav} from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 
-export const NavBar = () => {  
+export const NavBar = () => {
 
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export const NavBar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
-    </Navbar> 
+    </Navbar>
   );
 }
 
