@@ -21,15 +21,9 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem("users", JSON.stringify(updatedUsers));
     };
 
-    const setsubmittedInLocalStorage = (
-        userEmail,
-        courseId,
-        topicId,
-        exerciseId,
-        data
-    ) => {
+    const setsubmittedInLocalStorage = (userEmail, courseId, topicId, exerciseId, fileName, data) => {
         const localStorageKey = `exercise-${courseId}-${topicId}-${exerciseId}`;
-        const newItem = { [localStorageKey]: data, };
+        const newItem = { [localStorageKey]: data, courseId, fileName };
         const updatedUsers = users.map((user) => {
             if (user.email === userEmail) {
                 if (!user.submitted.some((item) => item.localStorageKey === localStorageKey)) {
@@ -41,18 +35,7 @@ export const UserProvider = ({ children }) => {
         setUsers(updatedUsers);
         localStorage.setItem("users", JSON.stringify(updatedUsers));
     };
-    const removeFromsubmittedInLocalStorage = (userEmail, itemId) => {
-        const updatedUsers = users.map((user) => {
-            if (user.email === userEmail) {
-                // Remove item from submitted based on itemId
-                user.submitted = user.submitted.filter((item) => item.id !== itemId);
-            }
-            return user;
-        });
-        setUsers(updatedUsers);
-        // Update local storage with the updated users data
-        localStorage.setItem("users", JSON.stringify(updatedUsers));
-    };
+
     const getsubmittedByUserEmail = (userEmail) => {
         const user = users.find((user) => user.email === userEmail);
         return user ? user.submitted : [];
@@ -60,27 +43,50 @@ export const UserProvider = ({ children }) => {
 
     const getSubmittedFromLocalStorage = (userEmail, courseId, topicId, exerciseId) => {
         const submittedExercises = getsubmittedByUserEmail(userEmail);
-
         const targetKey = `exercise-${courseId}-${topicId}-${exerciseId}`;
         const storedData = submittedExercises.find((submitted) => targetKey in submitted)
+        // console.log(submittedExercises.indexOf(storedData))
         return storedData;
     };
 
-    const checkAndAddUser = (email) => {
-        const userExists = users.some((user) => user.email === email);
-        if (!userExists) {
-            addUserToLocalStorage(email);
-        }
+    const getSubmittedCountFromLocalStorage = (userEmail, id) => {
+        const submittedExercises = getsubmittedByUserEmail(userEmail);
+        var count = 0;
+        submittedExercises.forEach(submit => {
+            if (submit.courseId === JSON.parse(id)) {
+                count = count + 1;
+            }
+        });
+        return count;
     };
+
+    const removeFromsubmittedInLocalStorage = (userEmail, courseId, topicId, exerciseId) => {
+        const submittedExercises = getsubmittedByUserEmail(userEmail);
+        // const targetKey = `exercise-${courseId}-${topicId}-${exerciseId}`;
+        const storedData = getSubmittedFromLocalStorage(userEmail, courseId, topicId, exerciseId);
+        const updatedUsers = users.map((user) => {
+            if (user.email === userEmail && user.submitted && storedData) {
+                // Remove item from submitted based on itemId
+                const index = submittedExercises.indexOf(storedData)
+                // console.log(user.submitted.splice(index, 1))
+                user.submitted.splice(index, 1);
+            }
+            return user;
+        });
+        setUsers(updatedUsers);
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+    };
+
     const value = {
         users,
-        checkAndAddUser,
         addUserToLocalStorage,
         setsubmittedInLocalStorage,
         getsubmittedByUserEmail,
-        removeFromsubmittedInLocalStorage,
-        getSubmittedFromLocalStorage
+        getSubmittedFromLocalStorage,
+        getSubmittedCountFromLocalStorage,
+        removeFromsubmittedInLocalStorage
     };
+
     return (
         <UserContext.Provider value={value}>
             {children}

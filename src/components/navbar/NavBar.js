@@ -35,6 +35,11 @@ export const NavBar = () => {
             <Nav.Link className="mx-lg-5 px-lg-5" href="/mentor">Mentor</Nav.Link>
             {
               currentUser && <Nav.Link className="mx-lg-5 px-lg-5" onClick={handleLogout}>Logout</Nav.Link>
+
+            }
+            {
+              currentUser && <Nav.Link className="mx-lg-5 px-lg-5" onClick={() => localStorage.clear()}>Clear</Nav.Link>
+
             }
           </Nav>
         </Navbar.Collapse>
