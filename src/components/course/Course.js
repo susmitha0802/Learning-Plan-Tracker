@@ -9,8 +9,8 @@ import { Progress } from '../progress/Progress';
 import "./Course.css";
 import "../../App.css";
 
-
 import { createContext } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 export const CourseContext = createContext();
 
 
@@ -22,6 +22,12 @@ export const Course = () => {
         const response = await axios.get(`http://localhost:4000/courses/${courseId}`);
         return response.data;
     });
+    const { data: assigned, isLoading: isAssignedLoading, isError: isAssignedError } = useQuery(["assigned"], async () => {
+        const response = await axios.get(`http://localhost:4000/assigned`);
+        return response.data;
+    });
+
+    const { currentUser } = useAuth();
 
     useEffect(() => {
 
@@ -40,6 +46,18 @@ export const Course = () => {
         return <h3>Loading...</h3>
     }
 
+    if (isAssignedLoading) {
+        return <h3>Loading...</h3>
+    }
+
+    if (isAssignedError) {
+        return <h3>Loading...</h3>
+    }
+
+    const email = currentUser.email;
+
+    const assignedMentor = assigned?.filter(assign => assign.mentee === email && assign.course === courseId);
+
     var totalExercises = 0;
     if (course?.topics) {
         totalExercises = getTotalExercises(0, course?.topics);
@@ -52,6 +70,7 @@ export const Course = () => {
                 <div className="w-50 mx-5 px-5">
                     <h1 className="my-4">Learn {course.name} </h1>
                     <p className="mb-4 size">{course.caption}</p>
+                    <p className="mb-4 size">Contact your mentor - {assignedMentor[0].mentor}</p>
                     <p className="mb-4 size">Course Progress</p>
                     <Progress id={courseId} total={totalExercises} />
                 </div>

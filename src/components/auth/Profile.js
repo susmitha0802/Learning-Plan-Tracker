@@ -27,6 +27,7 @@ export const Profile = () => {
         <Card.Body>
           <h2 className="mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
+          <strong>Name:</strong> {currentUser && <p>{currentUser.displayName}</p>}
           <strong>Email:</strong> {currentUser && <p>{currentUser.email}</p>}
           <Link to="/update-profile">
             Update Profile
