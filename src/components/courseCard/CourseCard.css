@@ -1,7 +1,11 @@
-.card-container:hover {
-    box-shadow: 5px 5px 50px #ccc;
+.card {
+    border-radius: 150px;
 }
 
 .card-container img {
-    height: 500px;
+    height: 350px;
+}
+
+.card-container:hover {
+    box-shadow: 5px 5px 50px #ccc;
 }

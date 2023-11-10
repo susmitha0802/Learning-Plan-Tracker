@@ -40,7 +40,6 @@ export const Exercises = ({ id, question, topicId }) => {
         setCompleted(false);
         message.success(`${file.name} removed successfully.`);
         setDefaultFiles([{}]);
-        console.log(defaultFiles)
         return removeFromsubmittedInLocalStorage(currentUser.email, courseId, topicId, id);
     }
 
@@ -61,7 +60,12 @@ export const Exercises = ({ id, question, topicId }) => {
 
     return (
         <>
-            <Checkbox className="size mx-5" disabled={!completed} checked={completed} onChange={handleCheckboxChange}>
+            <Checkbox
+                className="size mx-5"
+                disabled={true}
+                checked={completed}
+                onChange={handleCheckboxChange}
+            >
                 Exercise {id}
             </Checkbox>
             <div className="size mx-5 my-2 px-5">
@@ -76,7 +80,7 @@ export const Exercises = ({ id, question, topicId }) => {
                 >
                     <Button type='primary' disabled={completed} icon={<UploadOutlined />}>Upload File</Button>
                 </Upload >}
-            </div>
+            </div >
         </>
     );
 }

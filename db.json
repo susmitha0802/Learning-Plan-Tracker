@@ -446,34 +446,10 @@
       "id": 2
     },
     {
-      "name": "Mentor2",
-      "email": "mentor2@gmail.com",
-      "role": "mentor",
-      "id": 3
-    },
-    {
-      "name": "Mentor3",
-      "email": "mentor3@gmail.com",
-      "role": "mentor",
-      "id": 4
-    },
-    {
       "name": "Mentee1",
       "email": "susmithapapani@gmail.com",
       "role": "mentee",
-      "id": 5
-    },
-    {
-      "name": "Mentee2",
-      "email": "mentee2@gmail.com",
-      "role": "mentee",
-      "id": 6
-    },
-    {
-      "name": "Mentee3",
-      "email": "mentee3@gmail.com",
-      "role": "mentee",
-      "id": 7
+      "id": 3
     }
   ],
   "assigned": [
@@ -488,12 +464,6 @@
       "mentee": "susmithapapani@gmail.com",
       "course": "2",
       "id": 2
-    },
-    {
-      "mentor": "mentor2@gmail.com",
-      "mentee": "mentee3@gmail.com",
-      "course": "1",
-      "id": 3
     }
   ]
 }

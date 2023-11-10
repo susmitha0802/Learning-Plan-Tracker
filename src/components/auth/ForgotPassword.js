@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { Alert, Button, Card, Form} from "react-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
 import "./Auth.css";
 
 const initialValues = {

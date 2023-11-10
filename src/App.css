@@ -1,8 +1,16 @@
 .body {
-  background-color: #000000;
-  color: white;
+  /* background-color: #e5e0f7; */
+  /* background-color: #ccc9d7; */
+  /* background-color: lightslategray; */
+  min-height: 92vh;
+  color: black;
+
 }
 
 .size {
   font-size: 1.3rem;
+}
+
+.font {
+  font-size: 1.2rem;
 }

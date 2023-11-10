@@ -3,11 +3,11 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
 import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Alert, Button, Card, Form, Row, Col, Container } from "react-bootstrap";
-import "./Auth.css";
+import { Alert, Button, Card, Form, Row, Col } from "react-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
 import { useUser } from "../../contexts/UserContext";
+import "./Auth.css";
 
 const initialValues = {
   name: "",
@@ -58,7 +58,7 @@ export const Signup = () => {
         role: values.role
       }
       mutation.mutate(details);
-      navigate("/courses");
+      navigate("/login");
     }
     catch {
       setError("Failed to create an account");
@@ -68,115 +68,113 @@ export const Signup = () => {
   }
 
   return (
-    <Container>
-      <div className="m-lg-5 p-lg-5 d-flex align-items-center flex-column">
-        <Card className="mx-lg-5 my-lg-3 p-5">
-          <Card.Body>
-            <h2 className="mb-4 text-center">Create Account</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
-            >
-              <FormikForm>
-                <Row>
-                  <Col>
-                    <Form.Group>
-                      <Form.Label htmlFor="name">Name</Form.Label>
-                      <div className="mb-3">
-                        <Field
-                          className="w-100"
-                          name="name"
-                          id="name"
-                          placeholder="Enter your name"
-                          autoComplete="true"
-                        />
-                        <ErrorMessage component="div" className="message error" name="name" />
-                      </div>
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group>
-                      <Form.Label htmlFor="email">Email</Form.Label>
-                      <div className="mb-3">
-                        <Field
-                          className="w-100"
-                          type="email"
-                          name="email"
-                          id="email"
-                          placeholder="Enter your email"
-                          autoComplete="true"
-                        />
-                        <ErrorMessage component="div" className="message error" name="email" />
-                      </div>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Group>
-                      <Form.Label htmlFor="password">Password</Form.Label>
-                      <div className="mb-3">
-                        <Field
-                          className="w-100"
-                          type="password"
-                          name="password"
-                          id="password"
-                          placeholder="Enter your password"
-                          autoComplete="true"
-                        />
-                        <ErrorMessage component="div" className="message error" name="password" />
-                      </div>
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group>
-                      <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
-                      <div className="mb-3">
-                        <Field
-                          className="w-100"
-                          type="password"
-                          name="confirmPassword"
-                          id="confirmPassword"
-                          placeholder="Confirm your password"
-                          autoComplete="true"
-                        />
-                        <ErrorMessage component="div" className="message error" name="confirmPassword" />
-                      </div>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Group>
-                      <Form.Label htmlFor="role">Role</Form.Label>
-                      <div className="mb-3">
-                        <Field
-                          className="w-100"
-                          as="select"
-                          name="role"
-                          id="role"
-                        >
-                          <option>--- Select your role ---</option>
-                          <option value="admin">Admin</option>
-                          <option value="mentor">Mentor</option>
-                          <option value="mentee">Mentee</option>
-                        </Field>
-                        <ErrorMessage component="div" className="message error" name="role" />
-                      </div>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Button disabled={loading} className="w-100" type="submit">Sign Up</Button>
-              </FormikForm>
-            </Formik>
-          </Card.Body>
-        </Card>
-        <div className="w-100 text-center mt-2">
-          Already have an account? <Link to="/login">Login</Link>
-        </div>
+    <div className="p-lg-5 d-flex align-items-center flex-column body">
+      <Card className="m-lg-5 p-5">
+        <Card.Body>
+          <h2 className="mb-4 text-center">Create Account</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            <FormikForm>
+              <Row>
+                <Col>
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <div className="mb-3">
+                      <Field
+                        className="w-100"
+                        name="name"
+                        id="name"
+                        placeholder="Enter your name"
+                        autoComplete="true"
+                      />
+                      <ErrorMessage component="div" className="message error" name="name" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group>
+                    <Form.Label htmlFor="email">Email</Form.Label>
+                    <div className="mb-3">
+                      <Field
+                        className="w-100"
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        autoComplete="true"
+                      />
+                      <ErrorMessage component="div" className="message error" name="email" />
+                    </div>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group>
+                    <Form.Label htmlFor="password">Password</Form.Label>
+                    <div className="mb-3">
+                      <Field
+                        className="w-100"
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        autoComplete="true"
+                      />
+                      <ErrorMessage component="div" className="message error" name="password" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group>
+                    <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
+                    <div className="mb-3">
+                      <Field
+                        className="w-100"
+                        type="password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        placeholder="Confirm your password"
+                        autoComplete="true"
+                      />
+                      <ErrorMessage component="div" className="message error" name="confirmPassword" />
+                    </div>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group>
+                    <Form.Label htmlFor="role">Role</Form.Label>
+                    <div className="mb-3">
+                      <Field
+                        className="w-100"
+                        as="select"
+                        name="role"
+                        id="role"
+                      >
+                        <option>--- Select your role ---</option>
+                        <option value="admin">Admin</option>
+                        <option value="mentor">Mentor</option>
+                        <option value="mentee">Mentee</option>
+                      </Field>
+                      <ErrorMessage component="div" className="message error" name="role" />
+                    </div>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Button disabled={loading} className="w-100" type="submit">Sign Up</Button>
+            </FormikForm>
+          </Formik>
+        </Card.Body>
+      </Card>
+      <div className="w-100 text-center">
+        Already have an account? <Link to="/login">Login</Link>
       </div>
-    </Container>
+    </div>
   )
 }

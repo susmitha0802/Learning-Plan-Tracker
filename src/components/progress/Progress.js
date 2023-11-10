@@ -1,17 +1,14 @@
 import { ProgressBar } from 'react-bootstrap';
 import { useUser } from '../../contexts/UserContext';
-import { useAuth } from '../../contexts/AuthContext';
 
-export const Progress = ({ id, total }) => {
-    const { currentUser } = useAuth();
+export const Progress = ({ id, total, email }) => {
     const { getSubmittedCountFromLocalStorage } = useUser();
-
-    const count = getSubmittedCountFromLocalStorage(currentUser.email, id);
+    const count = getSubmittedCountFromLocalStorage(email, id);
     const progress = Math.round(count / total * 100);
 
     return (
         <>
-            <ProgressBar now={progress} label={`${progress}%`} />
+            <ProgressBar className="mb-4 size" now={progress} label={`${progress}%`} />
         </>
     )
 }

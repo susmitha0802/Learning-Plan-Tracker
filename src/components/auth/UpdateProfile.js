@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Formik, Form as FormikForm, Field } from "formik";
-import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Card, Form} from "react-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
 import "./Auth.css";
 
 export const UpdateProfile = () => {
