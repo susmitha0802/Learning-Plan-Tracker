@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
 
     const setsubmittedInLocalStorage = (userEmail, courseId, topicId, exerciseId, fileName, data) => {
         const localStorageKey = `exercise-${courseId}-${topicId}-${exerciseId}`;
-        const newItem = { [localStorageKey]: data, courseId, fileName };
+        const newItem = { [localStorageKey]: data, courseId, topicId, exerciseId, fileName };
         const updatedUsers = users.map((user) => {
             if (user.email === userEmail) {
                 if (!user.submitted.some((item) => item.localStorageKey === localStorageKey)) {
@@ -45,7 +45,6 @@ export const UserProvider = ({ children }) => {
         const submittedExercises = getsubmittedByUserEmail(userEmail);
         const targetKey = `exercise-${courseId}-${topicId}-${exerciseId}`;
         const storedData = submittedExercises.find((submitted) => targetKey in submitted)
-        // console.log(submittedExercises.indexOf(storedData))
         return storedData;
     };
 
@@ -62,13 +61,10 @@ export const UserProvider = ({ children }) => {
 
     const removeFromsubmittedInLocalStorage = (userEmail, courseId, topicId, exerciseId) => {
         const submittedExercises = getsubmittedByUserEmail(userEmail);
-        // const targetKey = `exercise-${courseId}-${topicId}-${exerciseId}`;
         const storedData = getSubmittedFromLocalStorage(userEmail, courseId, topicId, exerciseId);
         const updatedUsers = users.map((user) => {
             if (user.email === userEmail && user.submitted && storedData) {
-                // Remove item from submitted based on itemId
                 const index = submittedExercises.indexOf(storedData)
-                // console.log(user.submitted.splice(index, 1))
                 user.submitted.splice(index, 1);
             }
             return user;

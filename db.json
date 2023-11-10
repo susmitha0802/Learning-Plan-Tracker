@@ -432,25 +432,38 @@
       ]
     }
   ],
-  "submitted1": [
+  "userDetails": [
     {
-      "exerciseId": 1,
-      "courseId": 1,
-      "file": "rc-upload-1698383171525-65",
+      "name": "Admin",
+      "email": "susmitha.papani@beautifulcode.in",
+      "role": "admin",
       "id": 1
     },
     {
-      "exerciseId": 26,
-      "courseId": 1,
-      "file": "rc-upload-1698383171525-67",
+      "name": "Mentor1",
+      "email": "susmitha0802@gmail.com",
+      "role": "mentor",
       "id": 2
     },
     {
-      "exerciseId": 21,
-      "courseId": 1,
-      "file": "rc-upload-1698383171525-69",
+      "name": "Mentee1",
+      "email": "susmithapapani@gmail.com",
+      "role": "mentee",
       "id": 3
     }
   ],
-  "submitted2": []
+  "assigned": [
+    {
+      "mentor": "susmitha0802@gmail.com",
+      "mentee": "susmithapapani@gmail.com",
+      "course": "1",
+      "id": 1
+    },
+    {
+      "mentor": "susmitha0802@gmail.com",
+      "mentee": "susmithapapani@gmail.com",
+      "course": "2",
+      "id": 2
+    }
+  ]
 }

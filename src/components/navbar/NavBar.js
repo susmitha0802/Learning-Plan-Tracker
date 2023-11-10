@@ -1,11 +1,29 @@
+import { useQuery } from 'react-query';
+import axios from 'axios';
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
 
 export const NavBar = () => {
+  const { data: userDetails, isLoading, isError } = useQuery(["userDetails"], async () => {
+    const response = await axios.get(`http://localhost:4000/userDetails`);
+    return response.data;
+  });
 
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  
+  if (isLoading) {
+    return <h3>Loading...</h3>
+  }
+
+  if (isError) {
+    return <h3>Error</h3>
+  }
+
+  const user = currentUser && userDetails?.filter(user => user.email === currentUser.email)
+
+  const role = currentUser && user[0]?.role;
 
   const handleLogout = async () => {
 
@@ -30,16 +48,22 @@ export const NavBar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link className="mx-lg-5 px-lg-5" href="/courses">Courses</Nav.Link>
+            {
+              role === "admin" && <Nav.Link className="mx-lg-5 px-lg-5" href="/admin">Admin</Nav.Link>
+            }
+            {
+              role !== "admin" && <Nav.Link className="mx-lg-5 px-lg-5" href="/courses">Courses</Nav.Link>
+            }
             <Nav.Link className="mx-lg-5 px-lg-5" href="/profile">Profile</Nav.Link>
-            <Nav.Link className="mx-lg-5 px-lg-5" href="/mentor">Mentor</Nav.Link>
+            {
+              role === "mentor" && <Nav.Link className="mx-lg-5 px-lg-5" href="/mentor">Menteee</Nav.Link>
+            }
             {
               currentUser && <Nav.Link className="mx-lg-5 px-lg-5" onClick={handleLogout}>Logout</Nav.Link>
 
             }
             {
               currentUser && <Nav.Link className="mx-lg-5 px-lg-5" onClick={() => localStorage.clear()}>Clear</Nav.Link>
-
             }
           </Nav>
         </Navbar.Collapse>

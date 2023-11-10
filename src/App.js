@@ -12,6 +12,9 @@ import { Courses } from "./components/courses/Courses";
 import { Course } from "./components/course/Course";
 import { Mentor } from "./components/mentor/Mentor";
 import { UserProvider } from "./contexts/UserContext";
+import { Admin } from "./components/admin/Admin";
+import { SubmittedExercises } from './components/submittedExercises/SubmittedExercises';
+import { AssignCourse } from "./components/assignCourse/AssignCourse";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +52,21 @@ const App = () => {
             <Route path='/mentor' element={
               <PrivateRoute>
                 <Mentor />
+              </PrivateRoute>}
+            />
+            <Route path='/mentor/:mentee/:courseId' element={
+              <PrivateRoute>
+                <SubmittedExercises />
+              </PrivateRoute>}
+            />
+            <Route path='/admin' element={
+              <PrivateRoute>
+                <Admin />
+              </PrivateRoute>}
+            />
+            <Route path='/admin/assign' element={
+              <PrivateRoute>
+                <AssignCourse />
               </PrivateRoute>}
             />
           </Routes>
