@@ -30,7 +30,7 @@ export const Mentor = () => {
     assignedMentees.length === 0 ?
       <div className='body p-5'>
         <Card className='m-5 p-5 d-flex justify-content-center align-items-center text-black bg-body-secondary'>
-          <Card.Body className='m-5 p-5 d-flex justify-content-center align-items-center flex-column'>
+          <Card.Body className='m-5 p-5'>
             <h1>No mentees are assigned yet</h1>
           </Card.Body>
         </Card>

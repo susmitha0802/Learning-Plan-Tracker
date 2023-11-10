@@ -17,9 +17,6 @@ const validationSchema = Yup.object({
         .required("Required!"),
     mentee: Yup.string()
         .required("Required!"),
-    // .array()
-    //     .min(1, 'Select at least one option')
-    //     .required("Required!"),
     course: Yup.string()
         .required("Required!"),
 });

@@ -8,7 +8,6 @@ import { DownloadExercise } from '../downloadExercise/DownloadExercise';
 import { getTotalExercises } from '../../utils/total';
 import { Progress } from '../progress/Progress';
 import "../../App.css";
-import { FaUserCircle } from 'react-icons/fa';
 
 export const SubmittedExercises = () => {
     const params = useParams();
@@ -17,11 +16,6 @@ export const SubmittedExercises = () => {
 
     const { data: course, isLoading: isCoursesLoading, isError: isCoursesError } = useQuery(["course", courseId], async () => {
         const response = await axios.get(`http://localhost:4000/courses/${courseId}`);
-        return response.data;
-    });
-
-    const { data: userDetails, isLoading: isUserDetailsLoading, isError: isUserDetailsError } = useQuery(["userDetails"], async () => {
-        const response = await axios.get(`http://localhost:4000/userDetails`);
         return response.data;
     });
 
@@ -44,14 +38,6 @@ export const SubmittedExercises = () => {
         return <h3>Error</h3>
     }
 
-    if (isUserDetailsLoading) {
-        return <h3>Loading...</h3>
-    }
-
-    if (isUserDetailsError) {
-        return <h3>Error</h3>
-    }
-
     const submitted = [];
 
     getsubmittedByUserEmail(mentee).forEach(submit => {
@@ -65,8 +51,6 @@ export const SubmittedExercises = () => {
         totalExercises = getTotalExercises(0, course?.topics);
     }
 
-    // const menteeName = userDetails?.filter(user => user.email === mentee)[0].name
-
     return (
         <div className="body course-header">
             <div className="d-flex align-items-center justify-content-center">
@@ -79,14 +63,6 @@ export const SubmittedExercises = () => {
                     <hr />
                     <p className="mb-4 size">Contact your mentee - {mentee}</p>
                 </div>
-                {/* <div>
-                    <h6 className="mb-4 d-flex align-items-center">
-                        <FaUserCircle />
-                        <span className="px-3">Mentee Details</span>
-                    </h6>
-                    <p className="mb-4">Mentee - {menteeName}</p>
-                    <p className="mb-4">Contact your mentee - {mentee}</p>
-                </div> */}
             </div>
             <div className="syllabus">
                 <h1 className="pb-3">Submitted Exercises</h1>

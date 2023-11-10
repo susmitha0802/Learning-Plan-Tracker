@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Card, Row } from 'react-bootstrap';
 import { useAuth } from '../../contexts/AuthContext';
 import { CourseCard } from '../courseCard/CourseCard';
-// import "../../App.css";
 
 export const Courses = () => {
   const { data: assigned, isLoading, isError } = useQuery(["assigned"], async () => {
@@ -28,10 +27,8 @@ export const Courses = () => {
   return (
     assignedCourses.length === 0 ?
       <div className='body m-5 p-5'>
-        <Card className='m-5 p-5 d-flex justify-content-center align-items-center text-black bg-body-secondary' >
-          {/* style={{ backgroundColor: 'lightseagreen'}} */}
-          {/* style={{ backgroundColor: 'lightgrey' }} */}
-          <Card.Body className='m-5 p-5 d-flex justify-content-center align-items-center flex-column '>
+        <Card className='m-5 p-5 text-center text-black bg-body-secondary' >
+          <Card.Body className='m-5 p-5  '>
             <h1>No courses are assigned yet</h1>
           </Card.Body>
         </Card>
