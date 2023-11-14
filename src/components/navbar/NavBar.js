@@ -12,7 +12,7 @@ export const NavBar = () => {
 
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  
+
   if (isLoading) {
     return <h3>Loading...</h3>
   }
@@ -61,9 +61,6 @@ export const NavBar = () => {
             {
               currentUser && <Nav.Link className="mx-lg-5 px-lg-5" onClick={handleLogout}>Logout</Nav.Link>
 
-            }
-            {
-              currentUser && <Nav.Link className="mx-lg-5 px-lg-5" onClick={() => localStorage.clear()}>Clear</Nav.Link>
             }
           </Nav>
         </Navbar.Collapse>
