@@ -22,7 +22,7 @@ export const Profile = () => {
 
   return (
     <div className="m-lg-5 p-lg-5 d-flex align-items-center flex-column body">
-      <Card className="mx-lg-5 my-lg-3 p-5">
+      <Card className="mx-lg-5 mt-lg-5 mb-lg-3 p-5">
         <Card.Body>
 
           <h1 className="mb-4 d-flex align-items-center">
