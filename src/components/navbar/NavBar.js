@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const NavBar = () => {
   const { data: userDetails, isLoading, isError } = useQuery(["userDetails"], async () => {
@@ -56,7 +56,7 @@ export const NavBar = () => {
             }
             <Nav.Link className="mx-lg-5 px-lg-5" href="/profile">Profile</Nav.Link>
             {
-              role === "mentor" && <Nav.Link className="mx-lg-5 px-lg-5" href="/mentor">Menteee</Nav.Link>
+              role === "mentor" && <Nav.Link className="mx-lg-5 px-lg-5" href="/mentees">Mentees</Nav.Link>
             }
             {
               currentUser && <Nav.Link className="mx-lg-5 px-lg-5" onClick={handleLogout}>Logout</Nav.Link>
