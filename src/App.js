@@ -6,7 +6,7 @@ import { NavBar } from "./components/navbar/NavBar"
 import { Login } from "./pages/login/Login";
 import { Signup } from "./pages/signup/Signup";
 import { ForgotPassword } from "./pages/forgotPassword/ForgotPassword";
-import { PrivateRoute } from "./common/components/privateRoute/PrivateRoute";
+import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
 import { Profile } from "./pages/profile/Profile";
 import { UpdateProfile } from "./pages/updateProfile/UpdateProfile"
 import { Courses } from "./pages/courses/Courses"
