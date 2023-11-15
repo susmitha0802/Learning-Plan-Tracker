@@ -1,20 +1,20 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "./contexts/AuthContext";
+import { UserProvider } from "./contexts/UserContext";
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/navbar/NavBar"
-import { Login } from "./components/auth/Login";
-import { Signup } from "./components/auth/Signup";
-import { ForgotPassword } from "./components/auth/ForgotPassword";
-import { PrivateRoute } from "./components/auth/PrivateRoute"
-import { Profile } from "./components/auth/Profile";
-import { UpdateProfile } from "./components/auth/UpdateProfile"
-import { Courses } from "./components/courses/Courses";
-import { Course } from "./components/course/Course";
-import { Mentor } from "./components/mentor/Mentor";
-import { UserProvider } from "./contexts/UserContext";
-import { Admin } from "./components/admin/Admin";
-import { SubmittedExercises } from './components/submittedExercises/SubmittedExercises';
-import { AssignCourse } from "./components/assignCourse/AssignCourse";
+import { Login } from "./pages/login/Login";
+import { Signup } from "./pages/signup/Signup";
+import { ForgotPassword } from "./pages/forgotPassword/ForgotPassword";
+import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
+import { Profile } from "./pages/profile/Profile";
+import { UpdateProfile } from "./pages/updateProfile/UpdateProfile"
+import { Courses } from "./pages/courses/Courses"
+import { Course } from "./pages/course/Course";
+import { Mentees } from "./pages/mentees/Mentees";
+import { Mentee } from './pages/mentee/Mentee';
+import { Admin } from "./pages/admin/Admin";
+import { AssignCourse } from "./pages/assignCourse/AssignCourse";
 
 const queryClient = new QueryClient();
 
@@ -49,14 +49,14 @@ const App = () => {
                 <Course />
               </PrivateRoute>}
             />
-            <Route path='/mentor' element={
+            <Route path='/mentees' element={
               <PrivateRoute>
-                <Mentor />
+                <Mentees />
               </PrivateRoute>}
             />
             <Route path='/mentor/:mentee/:courseId' element={
               <PrivateRoute>
-                <SubmittedExercises />
+                <Mentee />
               </PrivateRoute>}
             />
             <Route path='/admin' element={
