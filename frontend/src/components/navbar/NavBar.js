@@ -52,12 +52,12 @@ export const NavBar = () => {
               role === "admin" && <Nav.Link className="mx-lg-5 px-lg-5" href="/admin">Admin</Nav.Link>
             }
             {
+              role === "mentor" && <Nav.Link className="mx-lg-5 px-lg-5" href="/mentees">Mentees</Nav.Link>
+            }
+            {
               role !== "admin" && <Nav.Link className="mx-lg-5 px-lg-5" href="/courses">Courses</Nav.Link>
             }
             <Nav.Link className="mx-lg-5 px-lg-5" href="/profile">Profile</Nav.Link>
-            {
-              role === "mentor" && <Nav.Link className="mx-lg-5 px-lg-5" href="/mentees">Mentees</Nav.Link>
-            }
             {
               currentUser && <Nav.Link className="mx-lg-5 px-lg-5" onClick={handleLogout}>Logout</Nav.Link>
 

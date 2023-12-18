@@ -39,7 +39,10 @@ export const Login = () => {
     if (role === "admin") {
       navigate("/admin");
     }
-    else if (role === "mentor" || role === "mentee") {
+    else if (role === "mentor") {
+      navigate("/mentees");
+    }
+    else if (role === "mentee") {
       navigate("/courses");
     }
   }, [currentUser, userDetails, navigate])

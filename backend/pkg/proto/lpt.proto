@@ -1,0 +1,238 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+service LearningPlanTrackerService {
+
+    rpc AddCourse(AddCourseRequest) returns (AddCourseResponse);
+
+    rpc AddTopic(AddTopicRequest) returns (AddTopicResponse);
+
+    rpc AddExercise(AddExerciseRequest) returns (AddExerciseResponse);
+
+    rpc GetCourses(GetCoursesRequest) returns (GetCoursesResponse);
+
+    rpc GetUsersByRole(GetUsersByRoleRequest) returns (GetUsersByRoleResponse);
+
+    rpc GetCurrentAssignments(GetCurrentAssignmentsRequest) returns (GetCurrentAssignmentsResponse);
+
+    rpc PostAssignment(PostAssignmentRequest) returns (PostAssignmentResponse);
+
+    rpc GetAssignedCourses(GetAssignedCoursesRequest) returns (GetAssignedCoursesResponse);
+
+    rpc GetAssignedCourseDetailsByCourseId(GetAssignedCourseDetailsByCourseIdRequest) returns (GetAssignedCourseDetailsByCourseIdResponse);
+    
+    rpc GetAssignedCourseAndMentorDetails(GetAssignedCourseAndMentorDetailsRequest) returns (GetAssignedCourseAndMentorDetailsResponse);
+
+    rpc PostExercise(PostExerciseRequest) returns (PostExerciseResponse);
+
+    rpc DeleteExercise(DeleteExerciseRequest) returns (DeleteExerciseResponse);
+
+    rpc GetTotalNoOfExercices(GetTotalNoOfExercicesRequest) returns (GetTotalNoOfExercicesResponse);
+
+    rpc GetSubmittedExercisesCount(GetSubmittedExercisesCountRequest) returns (GetSubmittedExercisesCountResponse);
+
+    rpc GetAssignedMenteesAndCourses(GetAssignedMenteesAndCoursesRequest) returns (GetAssignedMenteesAndCoursesResponse);
+
+    rpc GetAssignedMenteeAndCourseDetails(GetAssignedMenteeAndCourseDetailsRequest) returns (GetAssignedMenteeAndCourseDetailsResponse);
+
+    rpc GetSubmittedExercises(GetSubmittedExercisesRequest) returns (GetSubmittedExercisesResponse);
+}
+
+message CourseDetails {
+    int32 id = 1;
+    string name = 2;
+    string caption = 3;
+	string logo = 4;
+	int32 time = 5;
+    repeated TopicDetails TD = 6;
+}
+
+message TopicDetails {
+    int32 id = 1;
+    string name = 2;
+    string resource = 3;
+    int32 course_id = 4;
+    repeated ExerciseDetails ED = 5;
+}
+
+message ExerciseDetails {
+    int32 id = 1;
+    string question = 2;
+    int32 topic_id = 3;
+}
+
+message CurrentAssignmets {
+    string mentor_name = 1;
+    string mentee_name = 2;
+    string course_name = 3;
+}
+
+message MenteeAndCourseDetails {
+    string mentee_email = 1;
+    CourseDetails CD = 2;
+}
+
+message SubmittedExercisesDetails {
+    string file_name = 1;
+    string file = 2;
+    string question = 3;
+}
+
+message AddCourseRequest {
+	CourseDetails cd = 1;
+}
+
+message AddCourseResponse {
+    CourseDetails cd = 1;
+}
+
+message AddTopicRequest {
+    TopicDetails td = 1;
+}
+
+message AddTopicResponse {
+    TopicDetails td = 1;
+}
+
+message AddExerciseRequest {
+    ExerciseDetails ed = 1;
+}
+
+message AddExerciseResponse {
+    ExerciseDetails ed = 1;
+}
+
+message GetCoursesRequest {
+
+}
+
+message GetCoursesResponse {
+}
+
+message GetUsersByRoleRequest {
+    string role = 1;
+}
+
+message GetUsersByRoleResponse {
+    repeated string name = 1;
+    string err = 2;
+}
+
+message GetCurrentAssignmentsRequest {
+
+}
+
+message GetCurrentAssignmentsResponse {
+    repeated CurrentAssignmets CA = 1;
+    string err = 2;
+}
+
+message PostAssignmentRequest {
+    int32 mentor_id = 1;
+    int32 mentee_id = 2;
+    int32 course_id = 3;
+}
+
+message PostAssignmentResponse {
+    string message = 1;
+    string err = 2;
+}
+
+message GetAssignedCoursesRequest {
+    string email = 1;
+}
+
+message GetAssignedCoursesResponse {
+    repeated int32 course_id = 1;
+    string err = 2;
+}
+
+message GetAssignedCourseDetailsByCourseIdRequest {
+    int32 course_id = 1;
+}
+
+message GetAssignedCourseDetailsByCourseIdResponse {
+    CourseDetails CD = 1;
+    string err = 2;
+}
+
+message GetAssignedCourseAndMentorDetailsRequest {
+    int32 course_id = 1;
+    string mentee_email = 2;
+}
+
+message GetAssignedCourseAndMentorDetailsResponse {
+    CourseDetails CD = 1;
+    string mentor_email = 2;
+    string err = 3;
+}
+
+message PostExerciseRequest {
+    string mentee_email = 1;
+    int32 exercise_id = 2;
+    string file_name = 3;
+    string file = 4;
+}
+
+message PostExerciseResponse {
+    string message = 1;
+    string err = 2;
+}
+
+message DeleteExerciseRequest {
+    string mentee_email = 1;
+    int32 exercise_id = 2;
+}
+
+message DeleteExerciseResponse {
+    string err = 1;
+}
+
+message GetTotalNoOfExercicesRequest {
+    int32 course_id = 1;
+}
+
+message GetTotalNoOfExercicesResponse {
+    int32 total = 1;
+    string err = 2;
+}
+
+message GetSubmittedExercisesCountRequest {
+    string mentee_email = 1;
+    int32 course_id = 2;
+}
+
+message GetSubmittedExercisesCountResponse {
+    int32 count = 1;
+    string err = 2;
+}
+
+message GetAssignedMenteesAndCoursesRequest {
+    string mentor_email = 1;
+}
+
+message GetAssignedMenteesAndCoursesResponse {
+    repeated MenteeAndCourseDetails MACD = 1;
+    string err = 2;
+}
+
+message GetAssignedMenteeAndCourseDetailsRequest {
+    string mentee_email = 1;
+    int32 course_id = 2;
+}
+
+message GetAssignedMenteeAndCourseDetailsResponse {
+    CourseDetails CD = 1;
+    string err = 2;
+}
+
+message GetSubmittedExercisesRequest {
+    string mentee_email = 1;
+    int32 course_id = 2;
+}
+
+message GetSubmittedExercisesResponse {
+    repeated SubmittedExercisesDetails SED = 1;
+    string err = 2;
+}
