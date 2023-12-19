@@ -47,3 +47,24 @@ func GetUsersByRole(client pb.LearningPlanTrackerServiceClient) {
 		log.Printf("%s\n", v)
 	}
 }
+
+func PostAssignment(client pb.LearningPlanTrackerServiceClient) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	for _, v := range courses_assigned {
+
+		res, err := client.PostAssignment(ctx, &pb.PostAssignmentRequest{A: v})
+
+		if err != nil {
+			log.Fatalf("Could not create: %v", err)
+		}
+
+		if res.A.GetId() == 0 {
+			log.Fatalf("Not created successfully: %v", err)
+		}
+
+		log.Printf("Mentor with id %v is assigned to a mentee with id %v to a %v course successfully", res.A.GetMentorId(), res.A.GetMenteeId(), res.A.GetCourseId())
+	}
+}

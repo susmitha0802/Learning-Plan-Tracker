@@ -18,4 +18,5 @@ type Database interface {
 	GetCourses()
 	AddUser(models.User) (int, error)
 	GetUsersByRole(proto.Role) ([]string, error)
+	PostAssignment(models.CoursesAssignment) (int, error)
 }

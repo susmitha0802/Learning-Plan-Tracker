@@ -45,3 +45,25 @@ func (s *LearningPlanTrackerServer) GetUsersByRole(ctx context.Context, req *pb.
 		Name: res,
 	}, nil
 }
+
+func (s *LearningPlanTrackerServer) PostAssignment(ctx context.Context, req *pb.PostAssignmentRequest) (*pb.PostAssignmentResponse, error) {
+	a := models.CoursesAssignment{
+		MentorId: int(req.A.GetMentorId()),
+		MenteeId: int(req.A.GetMenteeId()),
+		CourseId: int(req.A.GetCourseId()),
+	}
+
+	log.Println("Create assiggnment request received")
+
+	id, err := s.DB.PostAssignment(a)
+
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+
+	response := pb.Assignment{Id: int32(id), MentorId: int32(a.MentorId), MenteeId: int32(a.MenteeId), CourseId: int32(a.CourseId)}
+	return &pb.PostAssignmentResponse{
+		A: &response,
+	}, nil
+}

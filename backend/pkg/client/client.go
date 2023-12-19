@@ -28,5 +28,6 @@ func main() {
 	// AddExercise(client)
 	// GetCourses(client)
 	// AddUser(client)
-	GetUsersByRole(client)
+	// GetUsersByRole(client)
+	PostAssignment(client)
 }

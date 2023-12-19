@@ -36,11 +36,14 @@ type User struct {
 	Role  proto.Role `gorm:"type:int"`
 }
 
-type CoursesAssigned struct {
+type CoursesAssignment struct {
 	gorm.Model
 	MentorId int
 	MenteeId int
 	CourseId int
+	Mentor   User   `gorm:"foreignKey:MentorId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+	Mentee   User   `gorm:"foreignKey:MenteeId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+	Course   Course `gorm:"foreignKey:CourseId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }
 
 type SubmittedExercises struct {

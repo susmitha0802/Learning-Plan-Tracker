@@ -16,9 +16,9 @@ service LearningPlanTrackerService {
 
     rpc GetUsersByRole(GetUsersByRoleRequest) returns (GetUsersByRoleResponse);
 
-    rpc GetCurrentAssignments(GetCurrentAssignmentsRequest) returns (GetCurrentAssignmentsResponse);
-
     rpc PostAssignment(PostAssignmentRequest) returns (PostAssignmentResponse);
+
+    rpc GetCurrentAssignments(GetCurrentAssignmentsRequest) returns (GetCurrentAssignmentsResponse);
 
     rpc GetAssignedCourses(GetAssignedCoursesRequest) returns (GetAssignedCoursesResponse);
 
@@ -64,6 +64,25 @@ message ExerciseDetails {
     int32 topic_id = 3;
 }
 
+enum Role {
+    Admin = 0;
+    Mentor = 1;
+    Mentee = 2;
+} 
+    
+message User {
+    int32 id = 1;
+    string name = 2;
+    string email = 3;
+    Role role = 4;
+}
+
+message Assignment {
+    int32 id = 1;
+    int32 mentor_id = 2;
+    int32 mentee_id = 3;
+    int32 course_id = 4;
+}
 message CurrentAssignmets {
     string mentor_name = 1;
     string mentee_name = 2;
@@ -79,19 +98,6 @@ message SubmittedExercisesDetails {
     string file_name = 1;
     string file = 2;
     string question = 3;
-}
-
-enum Role {
-        Admin = 0;
-        Mentor = 1;
-        Mentee = 2;
-    } 
-    
-message User {
-    int32 id = 1;
-    string name = 2;
-    string email = 3;
-    Role role = 4;
 }
 
 message AddCourseRequest {
@@ -151,14 +157,11 @@ message GetCurrentAssignmentsResponse {
 }
 
 message PostAssignmentRequest {
-    int32 mentor_id = 1;
-    int32 mentee_id = 2;
-    int32 course_id = 3;
+    Assignment a = 1;
 }
 
 message PostAssignmentResponse {
-    string message = 1;
-    string err = 2;
+    Assignment a = 1;
 }
 
 message GetAssignedCoursesRequest {
