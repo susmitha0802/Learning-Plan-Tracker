@@ -26,6 +26,7 @@ type LearningPlanTrackerServiceClient interface {
 	AddTopic(ctx context.Context, in *AddTopicRequest, opts ...grpc.CallOption) (*AddTopicResponse, error)
 	AddExercise(ctx context.Context, in *AddExerciseRequest, opts ...grpc.CallOption) (*AddExerciseResponse, error)
 	GetCourses(ctx context.Context, in *GetCoursesRequest, opts ...grpc.CallOption) (*GetCoursesResponse, error)
+	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error)
 	GetUsersByRole(ctx context.Context, in *GetUsersByRoleRequest, opts ...grpc.CallOption) (*GetUsersByRoleResponse, error)
 	GetCurrentAssignments(ctx context.Context, in *GetCurrentAssignmentsRequest, opts ...grpc.CallOption) (*GetCurrentAssignmentsResponse, error)
 	PostAssignment(ctx context.Context, in *PostAssignmentRequest, opts ...grpc.CallOption) (*PostAssignmentResponse, error)
@@ -79,6 +80,15 @@ func (c *learningPlanTrackerServiceClient) AddExercise(ctx context.Context, in *
 func (c *learningPlanTrackerServiceClient) GetCourses(ctx context.Context, in *GetCoursesRequest, opts ...grpc.CallOption) (*GetCoursesResponse, error) {
 	out := new(GetCoursesResponse)
 	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetCourses", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *learningPlanTrackerServiceClient) AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error) {
+	out := new(AddUserResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/AddUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -210,6 +220,7 @@ type LearningPlanTrackerServiceServer interface {
 	AddTopic(context.Context, *AddTopicRequest) (*AddTopicResponse, error)
 	AddExercise(context.Context, *AddExerciseRequest) (*AddExerciseResponse, error)
 	GetCourses(context.Context, *GetCoursesRequest) (*GetCoursesResponse, error)
+	AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error)
 	GetUsersByRole(context.Context, *GetUsersByRoleRequest) (*GetUsersByRoleResponse, error)
 	GetCurrentAssignments(context.Context, *GetCurrentAssignmentsRequest) (*GetCurrentAssignmentsResponse, error)
 	PostAssignment(context.Context, *PostAssignmentRequest) (*PostAssignmentResponse, error)
@@ -241,6 +252,9 @@ func (UnimplementedLearningPlanTrackerServiceServer) AddExercise(context.Context
 }
 func (UnimplementedLearningPlanTrackerServiceServer) GetCourses(context.Context, *GetCoursesRequest) (*GetCoursesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCourses not implemented")
+}
+func (UnimplementedLearningPlanTrackerServiceServer) AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUser not implemented")
 }
 func (UnimplementedLearningPlanTrackerServiceServer) GetUsersByRole(context.Context, *GetUsersByRoleRequest) (*GetUsersByRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUsersByRole not implemented")
@@ -363,6 +377,24 @@ func _LearningPlanTrackerService_GetCourses_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LearningPlanTrackerServiceServer).GetCourses(ctx, req.(*GetCoursesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LearningPlanTrackerService_AddUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LearningPlanTrackerServiceServer).AddUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/LearningPlanTrackerService/AddUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LearningPlanTrackerServiceServer).AddUser(ctx, req.(*AddUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -623,6 +655,10 @@ var LearningPlanTrackerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCourses",
 			Handler:    _LearningPlanTrackerService_GetCourses_Handler,
+		},
+		{
+			MethodName: "AddUser",
+			Handler:    _LearningPlanTrackerService_AddUser_Handler,
 		},
 		{
 			MethodName: "GetUsersByRole",

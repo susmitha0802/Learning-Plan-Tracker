@@ -1,6 +1,10 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"lpt/pkg/proto"
+
+	"gorm.io/gorm"
+)
 
 type Course struct {
 	gorm.Model
@@ -27,9 +31,9 @@ type Exercise struct {
 
 type User struct {
 	gorm.Model
-	Email string
 	Name  string
-	Role  string
+	Email string     `gorm:"unique"`
+	Role  proto.Role `gorm:"type:int"`
 }
 
 type CoursesAssigned struct {
