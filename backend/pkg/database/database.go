@@ -2,6 +2,7 @@ package database
 
 import (
 	"lpt/pkg/models"
+	"lpt/pkg/proto"
 
 	"gorm.io/gorm"
 )
@@ -15,4 +16,6 @@ type Database interface {
 	AddTopic(models.Topic) (int, error)
 	AddExercise(models.Exercise) (int, error)
 	GetCourses()
+	AddUser(models.User) (int, error)
+	GetUsersByRole(proto.Role) ([]string, error)
 }

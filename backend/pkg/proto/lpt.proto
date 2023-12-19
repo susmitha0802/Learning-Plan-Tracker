@@ -12,6 +12,8 @@ service LearningPlanTrackerService {
 
     rpc GetCourses(GetCoursesRequest) returns (GetCoursesResponse);
 
+    rpc AddUser(AddUserRequest) returns (AddUserResponse);
+
     rpc GetUsersByRole(GetUsersByRoleRequest) returns (GetUsersByRoleResponse);
 
     rpc GetCurrentAssignments(GetCurrentAssignmentsRequest) returns (GetCurrentAssignmentsResponse);
@@ -79,6 +81,19 @@ message SubmittedExercisesDetails {
     string question = 3;
 }
 
+enum Role {
+        Admin = 0;
+        Mentor = 1;
+        Mentee = 2;
+    } 
+    
+message User {
+    int32 id = 1;
+    string name = 2;
+    string email = 3;
+    Role role = 4;
+}
+
 message AddCourseRequest {
 	CourseDetails cd = 1;
 }
@@ -110,13 +125,20 @@ message GetCoursesRequest {
 message GetCoursesResponse {
 }
 
+message AddUserRequest{
+    User user = 1;
+}
+
+message AddUserResponse{
+    User user = 1;
+}
+
 message GetUsersByRoleRequest {
-    string role = 1;
+    Role role = 1;
 }
 
 message GetUsersByRoleResponse {
     repeated string name = 1;
-    string err = 2;
 }
 
 message GetCurrentAssignmentsRequest {

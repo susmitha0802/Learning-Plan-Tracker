@@ -37,12 +37,18 @@ func (db DBClient) AddExercise(exercise models.Exercise) (int, error) {
 
 func (db DBClient) GetCourses() {
 	courses := []models.Course{}
-	db.DB.Model(&courses).Preload("topics").
+	db.DB.
+		Preload("Topic").
+		Preload("Topic.Exercise").
 		Find(&courses)
 	for _, c := range courses {
 		log.Println(c)
 		for _, t := range c.Topic {
 			log.Println(t)
+			log.Println("exerices", t.Exercise)
+			for _, e := range t.Exercise {
+				log.Println(e)
+			}
 		}
 		log.Println()
 	}
