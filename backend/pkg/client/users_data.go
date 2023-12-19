@@ -42,3 +42,20 @@ var users = []*pb.User{
 	},
 }
 
+var courses_assigned = []*pb.Assignment{
+	{
+		MentorId: 2,
+		MenteeId: 5,
+		CourseId: 1,
+	},
+	{
+		MentorId: 2,
+		MenteeId: 5,
+		CourseId: 2,
+	},
+	{
+		MentorId: 3,
+		MenteeId: 6,
+		CourseId: 1,
+	},
+}

@@ -30,3 +30,13 @@ func (db DBClient) GetUsersByRole(role proto.Role) ([]string, error) {
 
 	return (user_names), res.Error
 }
+
+func (db DBClient) PostAssignment(a models.CoursesAssignment) (int, error) {
+	res := db.DB.Create(&a)
+
+	if res.RowsAffected == 0 {
+		return 0, res.Error
+	}
+
+	return int(a.ID), nil
+}
