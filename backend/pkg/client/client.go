@@ -14,7 +14,9 @@ const (
 )
 
 func main() {
-	conn, err := grpc.Dial("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial("localhost"+port,
+		grpc.WithTransportCredentials(insecure.NewCredentials()))
+
 	if err != nil {
 		log.Fatalf("Failed to connect the server %v", err)
 	}
@@ -26,8 +28,14 @@ func main() {
 	// AddCourse(client)
 	// AddTopic(client)
 	// AddExercise(client)
-	// GetCourses(client)
+	// ListCourses(client)
 	// AddUser(client)
-	// GetUsersByRole(client)
-	PostAssignment(client)
+	// ListUsersByRole(client)
+	// CreateAssignment(client)
+	// ListCurrentAssignments(client)
+	// ListAssignedCourses(client)
+	// GetAssignedCourseDetailsByCourseId(client)
+	// GetAssignedCourseAndMentorDetails(client)
+	// SubmitExercise(client)
+	DeleteExercise(client)
 }

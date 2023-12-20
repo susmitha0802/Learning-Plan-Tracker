@@ -19,8 +19,7 @@ func SetUpDB() *gorm.DB {
 
 	// db.Migrator().DropTable(&Course{}, &Topic{}, &Exercise{})
 	db.AutoMigrate(&Course{}, &Topic{}, &Exercise{})
-	db.AutoMigrate(&User{}, &CoursesAssignment{})
-	// db.AutoMigrate(&User{}, &CoursesAssignment{}, &SubmittedExercises{})
+	db.AutoMigrate(&User{}, &CoursesAssigned{}, &SubmittedExercises{})
 
 	return db
 }

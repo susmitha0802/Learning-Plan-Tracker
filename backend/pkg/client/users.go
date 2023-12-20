@@ -28,17 +28,17 @@ func AddUser(client pb.LearningPlanTrackerServiceClient) {
 	}
 }
 
-func GetUsersByRole(client pb.LearningPlanTrackerServiceClient) {
+func ListUsersByRole(client pb.LearningPlanTrackerServiceClient) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
 	role := pb.Role_Mentee
 
-	res, err := client.GetUsersByRole(ctx, &pb.GetUsersByRoleRequest{Role: role})
+	res, err := client.ListUsersByRole(ctx, &pb.ListUsersByRoleRequest{Role: role})
 
 	if err != nil {
-		log.Fatalf("Could not create: %v", err)
+		log.Fatalf("Could not fetch: %v", err)
 	}
 
 	log.Printf("There are %v users with role %v ", len(res.GetName()), role)
@@ -48,23 +48,41 @@ func GetUsersByRole(client pb.LearningPlanTrackerServiceClient) {
 	}
 }
 
-func PostAssignment(client pb.LearningPlanTrackerServiceClient) {
+func CreateAssignment(client pb.LearningPlanTrackerServiceClient) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
 	for _, v := range courses_assigned {
 
-		res, err := client.PostAssignment(ctx, &pb.PostAssignmentRequest{A: v})
+		res, err := client.CreateAssignment(ctx, &pb.CreateAssignmentRequest{Ca: v})
 
 		if err != nil {
 			log.Fatalf("Could not create: %v", err)
 		}
 
-		if res.A.GetId() == 0 {
+		if res.Ca.GetId() == 0 {
 			log.Fatalf("Not created successfully: %v", err)
 		}
 
-		log.Printf("Mentor with id %v is assigned to a mentee with id %v to a %v course successfully", res.A.GetMentorId(), res.A.GetMenteeId(), res.A.GetCourseId())
+		log.Printf("Mentor with id %v is assigned to a mentee with id %v to a %v course successfully", res.Ca.GetMentorId(), res.Ca.GetMenteeId(), res.Ca.GetCourseId())
+	}
+}
+
+func ListCurrentAssignments(client pb.LearningPlanTrackerServiceClient) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	res, err := client.ListCurrentAssignments(ctx, &pb.ListCurrentAssignmentsRequest{})
+
+	if err != nil {
+		log.Fatalf("Could not fetch: %v", err)
+	}
+
+	log.Println("Mentor\tMentee\tCourse")
+
+	for _, v := range res.GetCa() {
+		log.Printf("%s\t%s\t%s\n", v.GetMentorName(), v.GetMenteeName(), v.GetCourseName())
 	}
 }
