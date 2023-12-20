@@ -64,12 +64,12 @@ func AddExercise(client pb.LearningPlanTrackerServiceClient) {
 	}
 }
 
-func GetCourses(client pb.LearningPlanTrackerServiceClient) {
+func ListCourses(client pb.LearningPlanTrackerServiceClient) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	_, err := client.GetCourses(ctx, &pb.GetCoursesRequest{})
+	_, err := client.ListCourses(ctx, &pb.ListCoursesRequest{})
 	if err != nil {
 		log.Fatalf("Could not create: %v", err)
 	}

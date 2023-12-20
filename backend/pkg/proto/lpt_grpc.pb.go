@@ -25,15 +25,15 @@ type LearningPlanTrackerServiceClient interface {
 	AddCourse(ctx context.Context, in *AddCourseRequest, opts ...grpc.CallOption) (*AddCourseResponse, error)
 	AddTopic(ctx context.Context, in *AddTopicRequest, opts ...grpc.CallOption) (*AddTopicResponse, error)
 	AddExercise(ctx context.Context, in *AddExerciseRequest, opts ...grpc.CallOption) (*AddExerciseResponse, error)
-	GetCourses(ctx context.Context, in *GetCoursesRequest, opts ...grpc.CallOption) (*GetCoursesResponse, error)
+	ListCourses(ctx context.Context, in *ListCoursesRequest, opts ...grpc.CallOption) (*ListCoursesResponse, error)
 	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error)
-	GetUsersByRole(ctx context.Context, in *GetUsersByRoleRequest, opts ...grpc.CallOption) (*GetUsersByRoleResponse, error)
-	PostAssignment(ctx context.Context, in *PostAssignmentRequest, opts ...grpc.CallOption) (*PostAssignmentResponse, error)
-	GetCurrentAssignments(ctx context.Context, in *GetCurrentAssignmentsRequest, opts ...grpc.CallOption) (*GetCurrentAssignmentsResponse, error)
-	GetAssignedCourses(ctx context.Context, in *GetAssignedCoursesRequest, opts ...grpc.CallOption) (*GetAssignedCoursesResponse, error)
+	ListUsersByRole(ctx context.Context, in *ListUsersByRoleRequest, opts ...grpc.CallOption) (*ListUsersByRoleResponse, error)
+	CreateAssignment(ctx context.Context, in *CreateAssignmentRequest, opts ...grpc.CallOption) (*CreateAssignmentResponse, error)
+	ListCurrentAssignments(ctx context.Context, in *ListCurrentAssignmentsRequest, opts ...grpc.CallOption) (*ListCurrentAssignmentsResponse, error)
+	ListAssignedCourses(ctx context.Context, in *ListAssignedCoursesRequest, opts ...grpc.CallOption) (*ListAssignedCoursesResponse, error)
 	GetAssignedCourseDetailsByCourseId(ctx context.Context, in *GetAssignedCourseDetailsByCourseIdRequest, opts ...grpc.CallOption) (*GetAssignedCourseDetailsByCourseIdResponse, error)
 	GetAssignedCourseAndMentorDetails(ctx context.Context, in *GetAssignedCourseAndMentorDetailsRequest, opts ...grpc.CallOption) (*GetAssignedCourseAndMentorDetailsResponse, error)
-	PostExercise(ctx context.Context, in *PostExerciseRequest, opts ...grpc.CallOption) (*PostExerciseResponse, error)
+	SubmitExercise(ctx context.Context, in *SubmitExerciseRequest, opts ...grpc.CallOption) (*SubmitExerciseResponse, error)
 	DeleteExercise(ctx context.Context, in *DeleteExerciseRequest, opts ...grpc.CallOption) (*DeleteExerciseResponse, error)
 	GetTotalNoOfExercices(ctx context.Context, in *GetTotalNoOfExercicesRequest, opts ...grpc.CallOption) (*GetTotalNoOfExercicesResponse, error)
 	GetSubmittedExercisesCount(ctx context.Context, in *GetSubmittedExercisesCountRequest, opts ...grpc.CallOption) (*GetSubmittedExercisesCountResponse, error)
@@ -77,9 +77,9 @@ func (c *learningPlanTrackerServiceClient) AddExercise(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetCourses(ctx context.Context, in *GetCoursesRequest, opts ...grpc.CallOption) (*GetCoursesResponse, error) {
-	out := new(GetCoursesResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetCourses", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) ListCourses(ctx context.Context, in *ListCoursesRequest, opts ...grpc.CallOption) (*ListCoursesResponse, error) {
+	out := new(ListCoursesResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/ListCourses", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -95,36 +95,36 @@ func (c *learningPlanTrackerServiceClient) AddUser(ctx context.Context, in *AddU
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetUsersByRole(ctx context.Context, in *GetUsersByRoleRequest, opts ...grpc.CallOption) (*GetUsersByRoleResponse, error) {
-	out := new(GetUsersByRoleResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetUsersByRole", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) ListUsersByRole(ctx context.Context, in *ListUsersByRoleRequest, opts ...grpc.CallOption) (*ListUsersByRoleResponse, error) {
+	out := new(ListUsersByRoleResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/ListUsersByRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) PostAssignment(ctx context.Context, in *PostAssignmentRequest, opts ...grpc.CallOption) (*PostAssignmentResponse, error) {
-	out := new(PostAssignmentResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/PostAssignment", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) CreateAssignment(ctx context.Context, in *CreateAssignmentRequest, opts ...grpc.CallOption) (*CreateAssignmentResponse, error) {
+	out := new(CreateAssignmentResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/CreateAssignment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetCurrentAssignments(ctx context.Context, in *GetCurrentAssignmentsRequest, opts ...grpc.CallOption) (*GetCurrentAssignmentsResponse, error) {
-	out := new(GetCurrentAssignmentsResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetCurrentAssignments", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) ListCurrentAssignments(ctx context.Context, in *ListCurrentAssignmentsRequest, opts ...grpc.CallOption) (*ListCurrentAssignmentsResponse, error) {
+	out := new(ListCurrentAssignmentsResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/ListCurrentAssignments", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetAssignedCourses(ctx context.Context, in *GetAssignedCoursesRequest, opts ...grpc.CallOption) (*GetAssignedCoursesResponse, error) {
-	out := new(GetAssignedCoursesResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetAssignedCourses", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) ListAssignedCourses(ctx context.Context, in *ListAssignedCoursesRequest, opts ...grpc.CallOption) (*ListAssignedCoursesResponse, error) {
+	out := new(ListAssignedCoursesResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/ListAssignedCourses", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -149,9 +149,9 @@ func (c *learningPlanTrackerServiceClient) GetAssignedCourseAndMentorDetails(ctx
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) PostExercise(ctx context.Context, in *PostExerciseRequest, opts ...grpc.CallOption) (*PostExerciseResponse, error) {
-	out := new(PostExerciseResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/PostExercise", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) SubmitExercise(ctx context.Context, in *SubmitExerciseRequest, opts ...grpc.CallOption) (*SubmitExerciseResponse, error) {
+	out := new(SubmitExerciseResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/SubmitExercise", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -219,15 +219,15 @@ type LearningPlanTrackerServiceServer interface {
 	AddCourse(context.Context, *AddCourseRequest) (*AddCourseResponse, error)
 	AddTopic(context.Context, *AddTopicRequest) (*AddTopicResponse, error)
 	AddExercise(context.Context, *AddExerciseRequest) (*AddExerciseResponse, error)
-	GetCourses(context.Context, *GetCoursesRequest) (*GetCoursesResponse, error)
+	ListCourses(context.Context, *ListCoursesRequest) (*ListCoursesResponse, error)
 	AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error)
-	GetUsersByRole(context.Context, *GetUsersByRoleRequest) (*GetUsersByRoleResponse, error)
-	PostAssignment(context.Context, *PostAssignmentRequest) (*PostAssignmentResponse, error)
-	GetCurrentAssignments(context.Context, *GetCurrentAssignmentsRequest) (*GetCurrentAssignmentsResponse, error)
-	GetAssignedCourses(context.Context, *GetAssignedCoursesRequest) (*GetAssignedCoursesResponse, error)
+	ListUsersByRole(context.Context, *ListUsersByRoleRequest) (*ListUsersByRoleResponse, error)
+	CreateAssignment(context.Context, *CreateAssignmentRequest) (*CreateAssignmentResponse, error)
+	ListCurrentAssignments(context.Context, *ListCurrentAssignmentsRequest) (*ListCurrentAssignmentsResponse, error)
+	ListAssignedCourses(context.Context, *ListAssignedCoursesRequest) (*ListAssignedCoursesResponse, error)
 	GetAssignedCourseDetailsByCourseId(context.Context, *GetAssignedCourseDetailsByCourseIdRequest) (*GetAssignedCourseDetailsByCourseIdResponse, error)
 	GetAssignedCourseAndMentorDetails(context.Context, *GetAssignedCourseAndMentorDetailsRequest) (*GetAssignedCourseAndMentorDetailsResponse, error)
-	PostExercise(context.Context, *PostExerciseRequest) (*PostExerciseResponse, error)
+	SubmitExercise(context.Context, *SubmitExerciseRequest) (*SubmitExerciseResponse, error)
 	DeleteExercise(context.Context, *DeleteExerciseRequest) (*DeleteExerciseResponse, error)
 	GetTotalNoOfExercices(context.Context, *GetTotalNoOfExercicesRequest) (*GetTotalNoOfExercicesResponse, error)
 	GetSubmittedExercisesCount(context.Context, *GetSubmittedExercisesCountRequest) (*GetSubmittedExercisesCountResponse, error)
@@ -250,23 +250,23 @@ func (UnimplementedLearningPlanTrackerServiceServer) AddTopic(context.Context, *
 func (UnimplementedLearningPlanTrackerServiceServer) AddExercise(context.Context, *AddExerciseRequest) (*AddExerciseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddExercise not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetCourses(context.Context, *GetCoursesRequest) (*GetCoursesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCourses not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) ListCourses(context.Context, *ListCoursesRequest) (*ListCoursesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCourses not implemented")
 }
 func (UnimplementedLearningPlanTrackerServiceServer) AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUser not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetUsersByRole(context.Context, *GetUsersByRoleRequest) (*GetUsersByRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUsersByRole not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) ListUsersByRole(context.Context, *ListUsersByRoleRequest) (*ListUsersByRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListUsersByRole not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) PostAssignment(context.Context, *PostAssignmentRequest) (*PostAssignmentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PostAssignment not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) CreateAssignment(context.Context, *CreateAssignmentRequest) (*CreateAssignmentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAssignment not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetCurrentAssignments(context.Context, *GetCurrentAssignmentsRequest) (*GetCurrentAssignmentsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentAssignments not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) ListCurrentAssignments(context.Context, *ListCurrentAssignmentsRequest) (*ListCurrentAssignmentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCurrentAssignments not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetAssignedCourses(context.Context, *GetAssignedCoursesRequest) (*GetAssignedCoursesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAssignedCourses not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) ListAssignedCourses(context.Context, *ListAssignedCoursesRequest) (*ListAssignedCoursesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAssignedCourses not implemented")
 }
 func (UnimplementedLearningPlanTrackerServiceServer) GetAssignedCourseDetailsByCourseId(context.Context, *GetAssignedCourseDetailsByCourseIdRequest) (*GetAssignedCourseDetailsByCourseIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAssignedCourseDetailsByCourseId not implemented")
@@ -274,8 +274,8 @@ func (UnimplementedLearningPlanTrackerServiceServer) GetAssignedCourseDetailsByC
 func (UnimplementedLearningPlanTrackerServiceServer) GetAssignedCourseAndMentorDetails(context.Context, *GetAssignedCourseAndMentorDetailsRequest) (*GetAssignedCourseAndMentorDetailsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAssignedCourseAndMentorDetails not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) PostExercise(context.Context, *PostExerciseRequest) (*PostExerciseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PostExercise not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) SubmitExercise(context.Context, *SubmitExerciseRequest) (*SubmitExerciseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitExercise not implemented")
 }
 func (UnimplementedLearningPlanTrackerServiceServer) DeleteExercise(context.Context, *DeleteExerciseRequest) (*DeleteExerciseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteExercise not implemented")
@@ -363,20 +363,20 @@ func _LearningPlanTrackerService_AddExercise_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetCourses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCoursesRequest)
+func _LearningPlanTrackerService_ListCourses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCoursesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetCourses(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).ListCourses(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetCourses",
+		FullMethod: "/LearningPlanTrackerService/ListCourses",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetCourses(ctx, req.(*GetCoursesRequest))
+		return srv.(LearningPlanTrackerServiceServer).ListCourses(ctx, req.(*ListCoursesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -399,74 +399,74 @@ func _LearningPlanTrackerService_AddUser_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetUsersByRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUsersByRoleRequest)
+func _LearningPlanTrackerService_ListUsersByRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUsersByRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetUsersByRole(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).ListUsersByRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetUsersByRole",
+		FullMethod: "/LearningPlanTrackerService/ListUsersByRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetUsersByRole(ctx, req.(*GetUsersByRoleRequest))
+		return srv.(LearningPlanTrackerServiceServer).ListUsersByRole(ctx, req.(*ListUsersByRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_PostAssignment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PostAssignmentRequest)
+func _LearningPlanTrackerService_CreateAssignment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAssignmentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).PostAssignment(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).CreateAssignment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/PostAssignment",
+		FullMethod: "/LearningPlanTrackerService/CreateAssignment",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).PostAssignment(ctx, req.(*PostAssignmentRequest))
+		return srv.(LearningPlanTrackerServiceServer).CreateAssignment(ctx, req.(*CreateAssignmentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetCurrentAssignments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCurrentAssignmentsRequest)
+func _LearningPlanTrackerService_ListCurrentAssignments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCurrentAssignmentsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetCurrentAssignments(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).ListCurrentAssignments(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetCurrentAssignments",
+		FullMethod: "/LearningPlanTrackerService/ListCurrentAssignments",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetCurrentAssignments(ctx, req.(*GetCurrentAssignmentsRequest))
+		return srv.(LearningPlanTrackerServiceServer).ListCurrentAssignments(ctx, req.(*ListCurrentAssignmentsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetAssignedCourses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAssignedCoursesRequest)
+func _LearningPlanTrackerService_ListAssignedCourses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAssignedCoursesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetAssignedCourses(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).ListAssignedCourses(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetAssignedCourses",
+		FullMethod: "/LearningPlanTrackerService/ListAssignedCourses",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetAssignedCourses(ctx, req.(*GetAssignedCoursesRequest))
+		return srv.(LearningPlanTrackerServiceServer).ListAssignedCourses(ctx, req.(*ListAssignedCoursesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -507,20 +507,20 @@ func _LearningPlanTrackerService_GetAssignedCourseAndMentorDetails_Handler(srv i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_PostExercise_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PostExerciseRequest)
+func _LearningPlanTrackerService_SubmitExercise_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubmitExerciseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).PostExercise(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).SubmitExercise(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/PostExercise",
+		FullMethod: "/LearningPlanTrackerService/SubmitExercise",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).PostExercise(ctx, req.(*PostExerciseRequest))
+		return srv.(LearningPlanTrackerServiceServer).SubmitExercise(ctx, req.(*SubmitExerciseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -653,28 +653,28 @@ var LearningPlanTrackerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LearningPlanTrackerService_AddExercise_Handler,
 		},
 		{
-			MethodName: "GetCourses",
-			Handler:    _LearningPlanTrackerService_GetCourses_Handler,
+			MethodName: "ListCourses",
+			Handler:    _LearningPlanTrackerService_ListCourses_Handler,
 		},
 		{
 			MethodName: "AddUser",
 			Handler:    _LearningPlanTrackerService_AddUser_Handler,
 		},
 		{
-			MethodName: "GetUsersByRole",
-			Handler:    _LearningPlanTrackerService_GetUsersByRole_Handler,
+			MethodName: "ListUsersByRole",
+			Handler:    _LearningPlanTrackerService_ListUsersByRole_Handler,
 		},
 		{
-			MethodName: "PostAssignment",
-			Handler:    _LearningPlanTrackerService_PostAssignment_Handler,
+			MethodName: "CreateAssignment",
+			Handler:    _LearningPlanTrackerService_CreateAssignment_Handler,
 		},
 		{
-			MethodName: "GetCurrentAssignments",
-			Handler:    _LearningPlanTrackerService_GetCurrentAssignments_Handler,
+			MethodName: "ListCurrentAssignments",
+			Handler:    _LearningPlanTrackerService_ListCurrentAssignments_Handler,
 		},
 		{
-			MethodName: "GetAssignedCourses",
-			Handler:    _LearningPlanTrackerService_GetAssignedCourses_Handler,
+			MethodName: "ListAssignedCourses",
+			Handler:    _LearningPlanTrackerService_ListAssignedCourses_Handler,
 		},
 		{
 			MethodName: "GetAssignedCourseDetailsByCourseId",
@@ -685,8 +685,8 @@ var LearningPlanTrackerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LearningPlanTrackerService_GetAssignedCourseAndMentorDetails_Handler,
 		},
 		{
-			MethodName: "PostExercise",
-			Handler:    _LearningPlanTrackerService_PostExercise_Handler,
+			MethodName: "SubmitExercise",
+			Handler:    _LearningPlanTrackerService_SubmitExercise_Handler,
 		},
 		{
 			MethodName: "DeleteExercise",

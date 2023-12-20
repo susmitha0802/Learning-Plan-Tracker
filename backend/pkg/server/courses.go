@@ -12,7 +12,7 @@ func (s *LearningPlanTrackerServer) AddCourse(ctx context.Context, req *pb.AddCo
 		Name:    req.Cd.GetName(),
 		Caption: req.Cd.GetCaption(),
 		Logo:    req.Cd.GetLogo(),
-		Time:    int(req.Cd.GetTime()),
+		Time:    req.Cd.GetTime(),
 	}
 
 	log.Println("Create course request received")
@@ -24,7 +24,7 @@ func (s *LearningPlanTrackerServer) AddCourse(ctx context.Context, req *pb.AddCo
 		return nil, err
 	}
 
-	response := pb.CourseDetails{Id: int32(id), Name: c.Name, Caption: c.Caption, Logo: c.Logo, Time: int32(c.Time)}
+	response := pb.CourseDetails{Id: id, Name: c.Name, Caption: c.Caption, Logo: c.Logo, Time: c.Time}
 	return &pb.AddCourseResponse{
 		Cd: &response,
 	}, nil
@@ -34,7 +34,7 @@ func (s *LearningPlanTrackerServer) AddTopic(ctx context.Context, req *pb.AddTop
 	t := models.Topic{
 		Name:     req.Td.GetName(),
 		Resource: req.Td.GetResource(),
-		CourseId: int(req.Td.GetCourseId()),
+		CourseId: req.Td.GetCourseId(),
 	}
 
 	log.Println("Create topic request received")
@@ -46,7 +46,7 @@ func (s *LearningPlanTrackerServer) AddTopic(ctx context.Context, req *pb.AddTop
 		return nil, err
 	}
 
-	response := pb.TopicDetails{Id: int32(id), Name: t.Name, Resource: t.Resource, CourseId: int32(t.CourseId)}
+	response := pb.TopicDetails{Id: id, Name: t.Name, Resource: t.Resource, CourseId: t.CourseId}
 	return &pb.AddTopicResponse{
 		Td: &response,
 	}, nil
@@ -55,7 +55,7 @@ func (s *LearningPlanTrackerServer) AddTopic(ctx context.Context, req *pb.AddTop
 func (s *LearningPlanTrackerServer) AddExercise(ctx context.Context, req *pb.AddExerciseRequest) (*pb.AddExerciseResponse, error) {
 	e := models.Exercise{
 		Question: req.Ed.GetQuestion(),
-		TopicId:  int(req.Ed.GetTopicId()),
+		TopicId:  req.Ed.GetTopicId(),
 	}
 
 	log.Println("Create exercise request received")
@@ -67,18 +67,17 @@ func (s *LearningPlanTrackerServer) AddExercise(ctx context.Context, req *pb.Add
 		return nil, err
 	}
 
-	response := pb.ExerciseDetails{Id: int32(id), Question: e.Question, TopicId: int32(e.TopicId)}
+	response := pb.ExerciseDetails{Id: id, Question: e.Question, TopicId: e.TopicId}
 	return &pb.AddExerciseResponse{
 		Ed: &response,
 	}, nil
 }
 
-func (s *LearningPlanTrackerServer) GetCourses(ctx context.Context, req *pb.GetCoursesRequest) (*pb.GetCoursesResponse, error) {
+func (s *LearningPlanTrackerServer) ListCourses(ctx context.Context, req *pb.ListCoursesRequest) (*pb.ListCoursesResponse, error) {
 
 	log.Println("Read courses request received")
 
-	s.DB.GetCourses()
+	s.DB.ListCourses()
 
-	return &pb.GetCoursesResponse{
-	}, nil
+	return &pb.ListCoursesResponse{}, nil
 }

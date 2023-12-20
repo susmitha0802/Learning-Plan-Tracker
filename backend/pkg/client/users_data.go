@@ -42,7 +42,7 @@ var users = []*pb.User{
 	},
 }
 
-var courses_assigned = []*pb.Assignment{
+var courses_assigned = []*pb.CourseAssignment{
 	{
 		MentorId: 2,
 		MenteeId: 5,
@@ -57,5 +57,26 @@ var courses_assigned = []*pb.Assignment{
 		MentorId: 3,
 		MenteeId: 6,
 		CourseId: 1,
+	},
+}
+
+var submitted_exercises = []*pb.SubmitExerciseDetails{
+	{
+		MenteeEmail: "susmithapapani@gmail.com",
+		ExerciseId:  1,
+		FileName:    "exercise-1.txt",
+		File:        "data:text/plain;base64,ZmUK",		
+	},
+	{
+		MenteeEmail: "susmithapapani@gmail.com",
+		ExerciseId:  45,
+		FileName:    "exercise-20.txt",
+		File:        "data:text/plain;base64,ZmUK",		
+	},
+	{
+		MenteeEmail: "mentee2@gmail.com",
+		ExerciseId:  1,
+		FileName:    "exercise-1.txt",
+		File:        "data:text/plain;base64,ZmUK",		
 	},
 }

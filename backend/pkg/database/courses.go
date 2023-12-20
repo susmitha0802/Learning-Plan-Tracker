@@ -5,37 +5,37 @@ import (
 	"lpt/pkg/models"
 )
 
-func (db DBClient) AddCourse(course models.Course) (int, error) {
+func (db DBClient) AddCourse(course models.Course) (int32, error) {
 	res := db.DB.Create(&course)
 
-	if res.RowsAffected == 0 {
+	if res.RowsAffected == 0 || res.Error != nil {
 		return 0, res.Error
 	}
 
-	return int(course.ID), nil
+	return int32(course.ID), nil
 }
 
-func (db DBClient) AddTopic(topic models.Topic) (int, error) {
+func (db DBClient) AddTopic(topic models.Topic) (int32, error) {
 	res := db.DB.Create(&topic)
 
 	if res.RowsAffected == 0 {
 		return 0, res.Error
 	}
 
-	return int(topic.ID), nil
+	return int32(topic.ID), nil
 }
 
-func (db DBClient) AddExercise(exercise models.Exercise) (int, error) {
+func (db DBClient) AddExercise(exercise models.Exercise) (int32, error) {
 	res := db.DB.Create(&exercise)
 
 	if res.RowsAffected == 0 {
 		return 0, res.Error
 	}
 
-	return int(exercise.ID), nil
+	return int32(exercise.ID), nil
 }
 
-func (db DBClient) GetCourses() {
+func (db DBClient) ListCourses() {
 	courses := []models.Course{}
 	db.DB.
 		Preload("Topic").
