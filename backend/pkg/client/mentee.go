@@ -65,7 +65,6 @@ func GetAssignedCourseDetailsByCourseId(client pb.LearningPlanTrackerServiceClie
 			log.Println("\t\tExercise Question: ", exercise.GetQuestion())
 		}
 	}
-
 }
 
 func GetAssignedCourseAndMentorDetails(client pb.LearningPlanTrackerServiceClient) {
@@ -114,7 +113,7 @@ func SubmitExercise(client pb.LearningPlanTrackerServiceClient) {
 
 	for _, submitExercise := range submitted_exercises {
 
-		res, err := client.SubmitExercise(ctx, 
+		res, err := client.SubmitExercise(ctx,
 			&pb.SubmitExerciseRequest{
 				Sed: submitExercise})
 
@@ -149,5 +148,52 @@ func DeleteExercise(client pb.LearningPlanTrackerServiceClient) {
 	}
 
 	log.Printf("%v", res.GetMessage())
+
+}
+
+func GetSubmittedExercise(client pb.LearningPlanTrackerServiceClient) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	menteeEmail := "mentee3@gmail.com"
+	exerciseId := 1
+
+	res, err := client.GetSubmittedExercise(ctx,
+		&pb.GetSubmittedExerciseRequest{
+			MenteeEmail: menteeEmail,
+			ExerciseId:  int32(exerciseId),
+		})
+
+	if err != nil {
+		log.Fatalf("Could not submit: %v", err)
+	}
+
+	if res.GetFileName() == "" {
+		log.Println("Exercise is not submitted yet")
+	}
+
+	log.Printf("%v\t%v", res.GetFileName(), res.GetFile())
+}
+
+func GetProgress(client pb.LearningPlanTrackerServiceClient) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	menteeEmail := "mentee1@gmail.com"
+	courseId := 1
+
+	res, err := client.GetProgress(ctx,
+		&pb.GetProgressRequest{
+			MenteeEmail: menteeEmail,
+			CourseId:    int32(courseId),
+		})
+
+	if err != nil {
+		log.Fatalf("Could not submit: %v", err)
+	}
+
+	log.Printf("Progress is %v", res.GetProgress())
 
 }

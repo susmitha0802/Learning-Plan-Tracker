@@ -65,18 +65,24 @@ var submitted_exercises = []*pb.SubmitExerciseDetails{
 		MenteeEmail: "susmithapapani@gmail.com",
 		ExerciseId:  1,
 		FileName:    "exercise-1.txt",
-		File:        "data:text/plain;base64,ZmUK",		
+		File:        "data:text/plain;base64,ZmUK",
+	},
+	{
+		MenteeEmail: "susmithapapani@gmail.com",
+		ExerciseId:  11,
+		FileName:    "exercise-11.txt",
+		File:        "data:text/plain;base64,ZmUK",
 	},
 	{
 		MenteeEmail: "susmithapapani@gmail.com",
 		ExerciseId:  45,
-		FileName:    "exercise-20.txt",
-		File:        "data:text/plain;base64,ZmUK",		
+		FileName:    "exercise-45.txt",
+		File:        "data:text/plain;base64,ZmUK",
 	},
 	{
 		MenteeEmail: "mentee2@gmail.com",
 		ExerciseId:  1,
 		FileName:    "exercise-1.txt",
-		File:        "data:text/plain;base64,ZmUK",		
+		File:        "data:text/plain;base64,ZmUK",
 	},
 }

@@ -28,6 +28,27 @@ func AddUser(client pb.LearningPlanTrackerServiceClient) {
 	}
 }
 
+func GetUserEmail(client pb.LearningPlanTrackerServiceClient) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	userId := 56
+
+	res, err := client.GetUserEmail(ctx, &pb.GetUserEmailRequest{Id: int32(userId)})
+
+	if err != nil {
+		log.Fatalf("Could not create: %v", err)
+	}
+	log.Println(res)
+	if res == nil {
+		log.Printf("There is no user with id %v", userId)
+	}
+
+	log.Printf("Email of User with id %v is %v", userId, res)
+
+}
+
 func ListUsersByRole(client pb.LearningPlanTrackerServiceClient) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)

@@ -29,6 +29,23 @@ func (s *LearningPlanTrackerServer) AddUser(ctx context.Context, req *pb.AddUser
 	}, nil
 }
 
+func (s *LearningPlanTrackerServer) GetUserEmail(ctx context.Context, req *pb.GetUserEmailRequest) (*pb.GetUserEmailResponse, error) {
+	log.Println("Get user request received")
+
+	id := req.GetId()
+
+	email, err := s.DB.GetUserEmail(id)
+
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+
+	return &pb.GetUserEmailResponse{
+		Email: email,
+	}, nil
+}
+
 func (s *LearningPlanTrackerServer) ListUsersByRole(ctx context.Context, req *pb.ListUsersByRoleRequest) (*pb.ListUsersByRoleResponse, error) {
 	role := req.GetRole()
 
@@ -63,9 +80,9 @@ func (s *LearningPlanTrackerServer) CreateAssignment(ctx context.Context, req *p
 	}
 
 	response := pb.CourseAssignment{
-		Id: id, 
-		MentorId: ca.MentorId, 
-		MenteeId: ca.MenteeId, 
+		Id:       id,
+		MentorId: ca.MentorId,
+		MenteeId: ca.MenteeId,
 		CourseId: ca.CourseId,
 	}
 	return &pb.CreateAssignmentResponse{

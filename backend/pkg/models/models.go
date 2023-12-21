@@ -63,3 +63,10 @@ type SubmittedExercises struct {
 	Mentee     User     `gorm:"foreignKey:MenteeId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 	Exercise   Exercise `gorm:"foreignKey:ExerciseId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }
+
+type ListSubmittedExercisesByMentee struct {
+	ExerciseId int32
+	FileName   string
+	File       string
+	Question string
+}

@@ -167,7 +167,6 @@ func (s *LearningPlanTrackerServer) SubmitExercise(ctx context.Context, req *pb.
 	}, nil
 }
 
-
 func (s *LearningPlanTrackerServer) DeleteExercise(ctx context.Context, req *pb.DeleteExerciseRequest) (*pb.DeleteExerciseResponse, error) {
 
 	MenteeEmail := req.GetMenteeEmail()
@@ -190,5 +189,56 @@ func (s *LearningPlanTrackerServer) DeleteExercise(ctx context.Context, req *pb.
 
 	return &pb.DeleteExerciseResponse{
 		Message: res,
+	}, nil
+}
+
+func (s *LearningPlanTrackerServer) GetSubmittedExercise(ctx context.Context, req *pb.GetSubmittedExerciseRequest) (*pb.GetSubmittedExerciseResponse, error) {
+
+	MenteeEmail := req.GetMenteeEmail()
+	ExerciseId := req.GetExerciseId()
+
+	MenteeId, err := s.DB.GetUserIdByEmail(MenteeEmail)
+
+	if err != nil {
+		return nil, errors.New("Mentee Id not found")
+	}
+
+	log.Println("Get submitted exercise request received")
+
+	fileName, file, err := s.DB.GetSubmittedExercise(MenteeId, ExerciseId)
+
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+
+	return &pb.GetSubmittedExerciseResponse{
+		FileName: fileName,
+		File:     file,
+	}, nil
+}
+
+func (s *LearningPlanTrackerServer) GetProgress(ctx context.Context, req *pb.GetProgressRequest) (*pb.GetProgressResponse, error) {
+
+	menteeEmail := req.GetMenteeEmail()
+	courseId := req.GetCourseId()
+
+	menteeId, err := s.DB.GetUserIdByEmail(menteeEmail)
+
+	if err != nil {
+		return nil, errors.New("Mentee Id not found")
+	}
+
+	log.Println("Get progress request received")
+
+	res, err := s.DB.GetProgress(menteeId, courseId)
+
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+
+	return &pb.GetProgressResponse{
+		Progress: res,
 	}, nil
 }
