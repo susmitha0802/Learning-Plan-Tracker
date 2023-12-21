@@ -27,6 +27,7 @@ type LearningPlanTrackerServiceClient interface {
 	AddExercise(ctx context.Context, in *AddExerciseRequest, opts ...grpc.CallOption) (*AddExerciseResponse, error)
 	ListCourses(ctx context.Context, in *ListCoursesRequest, opts ...grpc.CallOption) (*ListCoursesResponse, error)
 	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error)
+	GetUserEmail(ctx context.Context, in *GetUserEmailRequest, opts ...grpc.CallOption) (*GetUserEmailResponse, error)
 	ListUsersByRole(ctx context.Context, in *ListUsersByRoleRequest, opts ...grpc.CallOption) (*ListUsersByRoleResponse, error)
 	CreateAssignment(ctx context.Context, in *CreateAssignmentRequest, opts ...grpc.CallOption) (*CreateAssignmentResponse, error)
 	ListCurrentAssignments(ctx context.Context, in *ListCurrentAssignmentsRequest, opts ...grpc.CallOption) (*ListCurrentAssignmentsResponse, error)
@@ -35,11 +36,10 @@ type LearningPlanTrackerServiceClient interface {
 	GetAssignedCourseAndMentorDetails(ctx context.Context, in *GetAssignedCourseAndMentorDetailsRequest, opts ...grpc.CallOption) (*GetAssignedCourseAndMentorDetailsResponse, error)
 	SubmitExercise(ctx context.Context, in *SubmitExerciseRequest, opts ...grpc.CallOption) (*SubmitExerciseResponse, error)
 	DeleteExercise(ctx context.Context, in *DeleteExerciseRequest, opts ...grpc.CallOption) (*DeleteExerciseResponse, error)
-	GetTotalNoOfExercices(ctx context.Context, in *GetTotalNoOfExercicesRequest, opts ...grpc.CallOption) (*GetTotalNoOfExercicesResponse, error)
-	GetSubmittedExercisesCount(ctx context.Context, in *GetSubmittedExercisesCountRequest, opts ...grpc.CallOption) (*GetSubmittedExercisesCountResponse, error)
-	GetAssignedMenteesAndCourses(ctx context.Context, in *GetAssignedMenteesAndCoursesRequest, opts ...grpc.CallOption) (*GetAssignedMenteesAndCoursesResponse, error)
-	GetAssignedMenteeAndCourseDetails(ctx context.Context, in *GetAssignedMenteeAndCourseDetailsRequest, opts ...grpc.CallOption) (*GetAssignedMenteeAndCourseDetailsResponse, error)
-	GetSubmittedExercises(ctx context.Context, in *GetSubmittedExercisesRequest, opts ...grpc.CallOption) (*GetSubmittedExercisesResponse, error)
+	GetSubmittedExercise(ctx context.Context, in *GetSubmittedExerciseRequest, opts ...grpc.CallOption) (*GetSubmittedExerciseResponse, error)
+	GetProgress(ctx context.Context, in *GetProgressRequest, opts ...grpc.CallOption) (*GetProgressResponse, error)
+	ListAssignedMenteesAndCourses(ctx context.Context, in *ListAssignedMenteesAndCoursesRequest, opts ...grpc.CallOption) (*ListAssignedMenteesAndCoursesResponse, error)
+	ListSubmittedExercisesByMentee(ctx context.Context, in *ListSubmittedExercisesByMenteeRequest, opts ...grpc.CallOption) (*ListSubmittedExercisesByMenteeResponse, error)
 }
 
 type learningPlanTrackerServiceClient struct {
@@ -89,6 +89,15 @@ func (c *learningPlanTrackerServiceClient) ListCourses(ctx context.Context, in *
 func (c *learningPlanTrackerServiceClient) AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error) {
 	out := new(AddUserResponse)
 	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/AddUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *learningPlanTrackerServiceClient) GetUserEmail(ctx context.Context, in *GetUserEmailRequest, opts ...grpc.CallOption) (*GetUserEmailResponse, error) {
+	out := new(GetUserEmailResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetUserEmail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -167,45 +176,36 @@ func (c *learningPlanTrackerServiceClient) DeleteExercise(ctx context.Context, i
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetTotalNoOfExercices(ctx context.Context, in *GetTotalNoOfExercicesRequest, opts ...grpc.CallOption) (*GetTotalNoOfExercicesResponse, error) {
-	out := new(GetTotalNoOfExercicesResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetTotalNoOfExercices", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) GetSubmittedExercise(ctx context.Context, in *GetSubmittedExerciseRequest, opts ...grpc.CallOption) (*GetSubmittedExerciseResponse, error) {
+	out := new(GetSubmittedExerciseResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetSubmittedExercise", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetSubmittedExercisesCount(ctx context.Context, in *GetSubmittedExercisesCountRequest, opts ...grpc.CallOption) (*GetSubmittedExercisesCountResponse, error) {
-	out := new(GetSubmittedExercisesCountResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetSubmittedExercisesCount", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) GetProgress(ctx context.Context, in *GetProgressRequest, opts ...grpc.CallOption) (*GetProgressResponse, error) {
+	out := new(GetProgressResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetProgress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetAssignedMenteesAndCourses(ctx context.Context, in *GetAssignedMenteesAndCoursesRequest, opts ...grpc.CallOption) (*GetAssignedMenteesAndCoursesResponse, error) {
-	out := new(GetAssignedMenteesAndCoursesResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetAssignedMenteesAndCourses", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) ListAssignedMenteesAndCourses(ctx context.Context, in *ListAssignedMenteesAndCoursesRequest, opts ...grpc.CallOption) (*ListAssignedMenteesAndCoursesResponse, error) {
+	out := new(ListAssignedMenteesAndCoursesResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/ListAssignedMenteesAndCourses", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetAssignedMenteeAndCourseDetails(ctx context.Context, in *GetAssignedMenteeAndCourseDetailsRequest, opts ...grpc.CallOption) (*GetAssignedMenteeAndCourseDetailsResponse, error) {
-	out := new(GetAssignedMenteeAndCourseDetailsResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetAssignedMenteeAndCourseDetails", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *learningPlanTrackerServiceClient) GetSubmittedExercises(ctx context.Context, in *GetSubmittedExercisesRequest, opts ...grpc.CallOption) (*GetSubmittedExercisesResponse, error) {
-	out := new(GetSubmittedExercisesResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetSubmittedExercises", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) ListSubmittedExercisesByMentee(ctx context.Context, in *ListSubmittedExercisesByMenteeRequest, opts ...grpc.CallOption) (*ListSubmittedExercisesByMenteeResponse, error) {
+	out := new(ListSubmittedExercisesByMenteeResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/ListSubmittedExercisesByMentee", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -221,6 +221,7 @@ type LearningPlanTrackerServiceServer interface {
 	AddExercise(context.Context, *AddExerciseRequest) (*AddExerciseResponse, error)
 	ListCourses(context.Context, *ListCoursesRequest) (*ListCoursesResponse, error)
 	AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error)
+	GetUserEmail(context.Context, *GetUserEmailRequest) (*GetUserEmailResponse, error)
 	ListUsersByRole(context.Context, *ListUsersByRoleRequest) (*ListUsersByRoleResponse, error)
 	CreateAssignment(context.Context, *CreateAssignmentRequest) (*CreateAssignmentResponse, error)
 	ListCurrentAssignments(context.Context, *ListCurrentAssignmentsRequest) (*ListCurrentAssignmentsResponse, error)
@@ -229,11 +230,10 @@ type LearningPlanTrackerServiceServer interface {
 	GetAssignedCourseAndMentorDetails(context.Context, *GetAssignedCourseAndMentorDetailsRequest) (*GetAssignedCourseAndMentorDetailsResponse, error)
 	SubmitExercise(context.Context, *SubmitExerciseRequest) (*SubmitExerciseResponse, error)
 	DeleteExercise(context.Context, *DeleteExerciseRequest) (*DeleteExerciseResponse, error)
-	GetTotalNoOfExercices(context.Context, *GetTotalNoOfExercicesRequest) (*GetTotalNoOfExercicesResponse, error)
-	GetSubmittedExercisesCount(context.Context, *GetSubmittedExercisesCountRequest) (*GetSubmittedExercisesCountResponse, error)
-	GetAssignedMenteesAndCourses(context.Context, *GetAssignedMenteesAndCoursesRequest) (*GetAssignedMenteesAndCoursesResponse, error)
-	GetAssignedMenteeAndCourseDetails(context.Context, *GetAssignedMenteeAndCourseDetailsRequest) (*GetAssignedMenteeAndCourseDetailsResponse, error)
-	GetSubmittedExercises(context.Context, *GetSubmittedExercisesRequest) (*GetSubmittedExercisesResponse, error)
+	GetSubmittedExercise(context.Context, *GetSubmittedExerciseRequest) (*GetSubmittedExerciseResponse, error)
+	GetProgress(context.Context, *GetProgressRequest) (*GetProgressResponse, error)
+	ListAssignedMenteesAndCourses(context.Context, *ListAssignedMenteesAndCoursesRequest) (*ListAssignedMenteesAndCoursesResponse, error)
+	ListSubmittedExercisesByMentee(context.Context, *ListSubmittedExercisesByMenteeRequest) (*ListSubmittedExercisesByMenteeResponse, error)
 	mustEmbedUnimplementedLearningPlanTrackerServiceServer()
 }
 
@@ -255,6 +255,9 @@ func (UnimplementedLearningPlanTrackerServiceServer) ListCourses(context.Context
 }
 func (UnimplementedLearningPlanTrackerServiceServer) AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUser not implemented")
+}
+func (UnimplementedLearningPlanTrackerServiceServer) GetUserEmail(context.Context, *GetUserEmailRequest) (*GetUserEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserEmail not implemented")
 }
 func (UnimplementedLearningPlanTrackerServiceServer) ListUsersByRole(context.Context, *ListUsersByRoleRequest) (*ListUsersByRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListUsersByRole not implemented")
@@ -280,20 +283,17 @@ func (UnimplementedLearningPlanTrackerServiceServer) SubmitExercise(context.Cont
 func (UnimplementedLearningPlanTrackerServiceServer) DeleteExercise(context.Context, *DeleteExerciseRequest) (*DeleteExerciseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteExercise not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetTotalNoOfExercices(context.Context, *GetTotalNoOfExercicesRequest) (*GetTotalNoOfExercicesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTotalNoOfExercices not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) GetSubmittedExercise(context.Context, *GetSubmittedExerciseRequest) (*GetSubmittedExerciseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSubmittedExercise not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetSubmittedExercisesCount(context.Context, *GetSubmittedExercisesCountRequest) (*GetSubmittedExercisesCountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSubmittedExercisesCount not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) GetProgress(context.Context, *GetProgressRequest) (*GetProgressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProgress not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetAssignedMenteesAndCourses(context.Context, *GetAssignedMenteesAndCoursesRequest) (*GetAssignedMenteesAndCoursesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAssignedMenteesAndCourses not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) ListAssignedMenteesAndCourses(context.Context, *ListAssignedMenteesAndCoursesRequest) (*ListAssignedMenteesAndCoursesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAssignedMenteesAndCourses not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetAssignedMenteeAndCourseDetails(context.Context, *GetAssignedMenteeAndCourseDetailsRequest) (*GetAssignedMenteeAndCourseDetailsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAssignedMenteeAndCourseDetails not implemented")
-}
-func (UnimplementedLearningPlanTrackerServiceServer) GetSubmittedExercises(context.Context, *GetSubmittedExercisesRequest) (*GetSubmittedExercisesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSubmittedExercises not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) ListSubmittedExercisesByMentee(context.Context, *ListSubmittedExercisesByMenteeRequest) (*ListSubmittedExercisesByMenteeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSubmittedExercisesByMentee not implemented")
 }
 func (UnimplementedLearningPlanTrackerServiceServer) mustEmbedUnimplementedLearningPlanTrackerServiceServer() {
 }
@@ -395,6 +395,24 @@ func _LearningPlanTrackerService_AddUser_Handler(srv interface{}, ctx context.Co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LearningPlanTrackerServiceServer).AddUser(ctx, req.(*AddUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LearningPlanTrackerService_GetUserEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LearningPlanTrackerServiceServer).GetUserEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/LearningPlanTrackerService/GetUserEmail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LearningPlanTrackerServiceServer).GetUserEmail(ctx, req.(*GetUserEmailRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -543,92 +561,74 @@ func _LearningPlanTrackerService_DeleteExercise_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetTotalNoOfExercices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTotalNoOfExercicesRequest)
+func _LearningPlanTrackerService_GetSubmittedExercise_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSubmittedExerciseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetTotalNoOfExercices(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).GetSubmittedExercise(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetTotalNoOfExercices",
+		FullMethod: "/LearningPlanTrackerService/GetSubmittedExercise",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetTotalNoOfExercices(ctx, req.(*GetTotalNoOfExercicesRequest))
+		return srv.(LearningPlanTrackerServiceServer).GetSubmittedExercise(ctx, req.(*GetSubmittedExerciseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetSubmittedExercisesCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetSubmittedExercisesCountRequest)
+func _LearningPlanTrackerService_GetProgress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProgressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetSubmittedExercisesCount(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).GetProgress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetSubmittedExercisesCount",
+		FullMethod: "/LearningPlanTrackerService/GetProgress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetSubmittedExercisesCount(ctx, req.(*GetSubmittedExercisesCountRequest))
+		return srv.(LearningPlanTrackerServiceServer).GetProgress(ctx, req.(*GetProgressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetAssignedMenteesAndCourses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAssignedMenteesAndCoursesRequest)
+func _LearningPlanTrackerService_ListAssignedMenteesAndCourses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAssignedMenteesAndCoursesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetAssignedMenteesAndCourses(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).ListAssignedMenteesAndCourses(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetAssignedMenteesAndCourses",
+		FullMethod: "/LearningPlanTrackerService/ListAssignedMenteesAndCourses",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetAssignedMenteesAndCourses(ctx, req.(*GetAssignedMenteesAndCoursesRequest))
+		return srv.(LearningPlanTrackerServiceServer).ListAssignedMenteesAndCourses(ctx, req.(*ListAssignedMenteesAndCoursesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetAssignedMenteeAndCourseDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAssignedMenteeAndCourseDetailsRequest)
+func _LearningPlanTrackerService_ListSubmittedExercisesByMentee_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListSubmittedExercisesByMenteeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetAssignedMenteeAndCourseDetails(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).ListSubmittedExercisesByMentee(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetAssignedMenteeAndCourseDetails",
+		FullMethod: "/LearningPlanTrackerService/ListSubmittedExercisesByMentee",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetAssignedMenteeAndCourseDetails(ctx, req.(*GetAssignedMenteeAndCourseDetailsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _LearningPlanTrackerService_GetSubmittedExercises_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetSubmittedExercisesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetSubmittedExercises(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetSubmittedExercises",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetSubmittedExercises(ctx, req.(*GetSubmittedExercisesRequest))
+		return srv.(LearningPlanTrackerServiceServer).ListSubmittedExercisesByMentee(ctx, req.(*ListSubmittedExercisesByMenteeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -659,6 +659,10 @@ var LearningPlanTrackerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddUser",
 			Handler:    _LearningPlanTrackerService_AddUser_Handler,
+		},
+		{
+			MethodName: "GetUserEmail",
+			Handler:    _LearningPlanTrackerService_GetUserEmail_Handler,
 		},
 		{
 			MethodName: "ListUsersByRole",
@@ -693,24 +697,20 @@ var LearningPlanTrackerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LearningPlanTrackerService_DeleteExercise_Handler,
 		},
 		{
-			MethodName: "GetTotalNoOfExercices",
-			Handler:    _LearningPlanTrackerService_GetTotalNoOfExercices_Handler,
+			MethodName: "GetSubmittedExercise",
+			Handler:    _LearningPlanTrackerService_GetSubmittedExercise_Handler,
 		},
 		{
-			MethodName: "GetSubmittedExercisesCount",
-			Handler:    _LearningPlanTrackerService_GetSubmittedExercisesCount_Handler,
+			MethodName: "GetProgress",
+			Handler:    _LearningPlanTrackerService_GetProgress_Handler,
 		},
 		{
-			MethodName: "GetAssignedMenteesAndCourses",
-			Handler:    _LearningPlanTrackerService_GetAssignedMenteesAndCourses_Handler,
+			MethodName: "ListAssignedMenteesAndCourses",
+			Handler:    _LearningPlanTrackerService_ListAssignedMenteesAndCourses_Handler,
 		},
 		{
-			MethodName: "GetAssignedMenteeAndCourseDetails",
-			Handler:    _LearningPlanTrackerService_GetAssignedMenteeAndCourseDetails_Handler,
-		},
-		{
-			MethodName: "GetSubmittedExercises",
-			Handler:    _LearningPlanTrackerService_GetSubmittedExercises_Handler,
+			MethodName: "ListSubmittedExercisesByMentee",
+			Handler:    _LearningPlanTrackerService_ListSubmittedExercisesByMentee_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

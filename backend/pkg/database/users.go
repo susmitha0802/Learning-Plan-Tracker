@@ -1,6 +1,7 @@
 package database
 
 import (
+	"errors"
 	"log"
 	"lpt/pkg/models"
 )
@@ -13,6 +14,21 @@ func (db DBClient) AddUser(user models.User) (int32, error) {
 	}
 
 	return int32(user.ID), nil
+}
+
+func (db DBClient) GetUserEmail(userId int32) (string, error) {
+	var user_email string
+	res := db.DB.
+		Table("users").
+		Select("email").
+		Where("id = ?", userId).
+		Find(&user_email)
+
+	if res.RowsAffected == 0 {
+		return "", errors.New("There is no user")
+	}
+
+	return user_email, res.Error
 }
 
 func (db DBClient) ListUsersByRole(roleId int32) ([]string, error) {

@@ -75,3 +75,4 @@ func ListCourses(client pb.LearningPlanTrackerServiceClient) {
 	}
 	log.Println("Done")
 }
+

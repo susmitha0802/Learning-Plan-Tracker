@@ -14,6 +14,8 @@ service LearningPlanTrackerService {
 
     rpc AddUser(AddUserRequest) returns (AddUserResponse);
 
+    rpc GetUserEmail(GetUserEmailRequest) returns (GetUserEmailResponse);
+
     rpc ListUsersByRole(ListUsersByRoleRequest) returns (ListUsersByRoleResponse);
 
     rpc CreateAssignment(CreateAssignmentRequest) returns (CreateAssignmentResponse);
@@ -30,15 +32,13 @@ service LearningPlanTrackerService {
 
     rpc DeleteExercise(DeleteExerciseRequest) returns (DeleteExerciseResponse);
 
-    rpc GetTotalNoOfExercices(GetTotalNoOfExercicesRequest) returns (GetTotalNoOfExercicesResponse);
+    rpc GetSubmittedExercise(GetSubmittedExerciseRequest) returns (GetSubmittedExerciseResponse);
 
-    rpc GetSubmittedExercisesCount(GetSubmittedExercisesCountRequest) returns (GetSubmittedExercisesCountResponse);
+    rpc GetProgress(GetProgressRequest) returns (GetProgressResponse);
 
-    rpc GetAssignedMenteesAndCourses(GetAssignedMenteesAndCoursesRequest) returns (GetAssignedMenteesAndCoursesResponse);
+    rpc ListAssignedMenteesAndCourses(ListAssignedMenteesAndCoursesRequest) returns (ListAssignedMenteesAndCoursesResponse);
 
-    rpc GetAssignedMenteeAndCourseDetails(GetAssignedMenteeAndCourseDetailsRequest) returns (GetAssignedMenteeAndCourseDetailsResponse);
-
-    rpc GetSubmittedExercises(GetSubmittedExercisesRequest) returns (GetSubmittedExercisesResponse);
+    rpc ListSubmittedExercisesByMentee(ListSubmittedExercisesByMenteeRequest) returns (ListSubmittedExercisesByMenteeResponse);
 }
 
 message CourseDetails {
@@ -91,7 +91,8 @@ message CurrentAssignmets {
 
 message MenteeAndCourseDetails {
     string mentee_email = 1;
-    CourseDetails cd = 2;
+    int32 mentee_id = 2;
+    int32 course_id = 3;
 }
 
 message SubmitExerciseDetails {
@@ -103,9 +104,10 @@ message SubmitExerciseDetails {
 }
 
 message SubmittedExercisesDetails {
-    string file_name = 1;
-    string file = 2;
-    string question = 3;
+    int32 exercise_id = 1;
+    string file_name = 2;
+    string file = 3;
+    string question = 4;
 }
 
 message AddCourseRequest {
@@ -145,6 +147,14 @@ message AddUserRequest{
 
 message AddUserResponse{
     User user = 1;
+}
+
+message GetUserEmailRequest {
+    int32 id =1;
+}
+
+message GetUserEmailResponse{
+    string email = 1;
 }
 
 message ListUsersByRoleRequest {
@@ -214,50 +224,38 @@ message DeleteExerciseResponse {
     string message = 1;
 }
 
-message GetTotalNoOfExercicesRequest {
-    int32 course_id = 1;
+message GetSubmittedExerciseRequest {
+    string mentee_email = 1;
+    int32 exercise_id = 2;
 }
 
-message GetTotalNoOfExercicesResponse {
-    int32 total = 1;
-    string err = 2;
+message GetSubmittedExerciseResponse {
+    string file_name = 1;
+    string file = 2;
 }
 
-message GetSubmittedExercisesCountRequest {
+message GetProgressRequest {
     string mentee_email = 1;
     int32 course_id = 2;
 }
 
-message GetSubmittedExercisesCountResponse {
-    int32 count = 1;
-    string err = 2;
+message GetProgressResponse {
+    int32 progress = 1;
 }
 
-message GetAssignedMenteesAndCoursesRequest {
+message ListAssignedMenteesAndCoursesRequest {
     string mentor_email = 1;
 }
 
-message GetAssignedMenteesAndCoursesResponse {
-    repeated MenteeAndCourseDetails MAcd = 1;
-    string err = 2;
+message ListAssignedMenteesAndCoursesResponse {
+    repeated MenteeAndCourseDetails macd = 1;
 }
 
-message GetAssignedMenteeAndCourseDetailsRequest {
-    string mentee_email = 1;
+message ListSubmittedExercisesByMenteeRequest {
+    int32 mentee_id = 1;
     int32 course_id = 2;
 }
 
-message GetAssignedMenteeAndCourseDetailsResponse {
-    CourseDetails cd = 1;
-    string err = 2;
-}
-
-message GetSubmittedExercisesRequest {
-    string mentee_email = 1;
-    int32 course_id = 2;
-}
-
-message GetSubmittedExercisesResponse {
+message ListSubmittedExercisesByMenteeResponse {
     repeated SubmittedExercisesDetails SED = 1;
-    string err = 2;
 }

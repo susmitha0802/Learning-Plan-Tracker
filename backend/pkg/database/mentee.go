@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log"
 	"lpt/pkg/models"
+	"slices"
 )
 
 func (db DBClient) ListAssignedCourses(userEmail string) ([]int32, error) {
@@ -88,4 +89,43 @@ func (db DBClient) DeleteExercise(mentee_id int32, exercise_id int32) (string, e
 	}
 
 	return "Deleted successfully", nil
+}
+
+func (db DBClient) GetSubmittedExercise(mentee_id int32, exercise_id int32) (string, string, error) {
+	submitted_exercises := models.SubmittedExercises{}
+	res := db.DB.
+		Where("mentee_id = ? AND exercise_id = ?", mentee_id, exercise_id).
+		Find(&submitted_exercises)
+
+	if res.Error != nil {
+		log.Println("Error", res.Error)
+		return "", "", res.Error
+	}
+
+	return submitted_exercises.FileName, submitted_exercises.File, nil
+}
+
+func (db DBClient) GetProgress(mentee_id int32, course_id int32) (int32, error) {
+	exercise_Ids, err := db.ListExerciseIds(course_id)
+	if err != nil {
+		return 0, err
+	}
+
+	total := len(exercise_Ids)
+	log.Println("total", total)
+
+	submittedExercises, err := db.ListSubmittedExercises(mentee_id)
+	if err != nil {
+		return 0, err
+	}
+
+	count := 0
+	for _, submittedExercise := range submittedExercises {
+		if slices.Contains(exercise_Ids, submittedExercise.ExerciseId) {
+			count = count + 1
+
+		}
+	}
+
+	return int32(count * 100 / total), nil
 }
