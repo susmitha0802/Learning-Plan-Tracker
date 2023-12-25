@@ -12,12 +12,14 @@ type DBClient struct {
 
 type Database interface {
 	AddCourse(models.Course) (int32, error)
+	GetCourseNameById(int32) (string, error)
 	AddTopic(models.Topic) (int32, error)
 	AddExercise(models.Exercise) (int32, error)
 	ListCourses()
 	ListExerciseIds(int32) ([]int32, error)
 	ListSubmittedExercises(int32) ([]models.SubmittedExercises, error)
 	AddUser(models.User) (int32, error)
+	GetUserDetails(int32) (models.User, error)
 	GetUserEmail(int32) (string, error)
 	ListUsersByRole(int32) ([]string, error)
 	CreateAssignment(models.CoursesAssigned) (int32, error)

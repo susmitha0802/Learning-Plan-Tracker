@@ -2,7 +2,9 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"lpt/pkg/alerts"
 	"lpt/pkg/models"
 	pb "lpt/pkg/proto"
 )
@@ -22,6 +24,11 @@ func (s *LearningPlanTrackerServer) AddUser(ctx context.Context, req *pb.AddUser
 		log.Println("Error", err.Error())
 		return nil, err
 	}
+
+	subject := "Welcome to Learning Plan Tracker!"
+	content := fmt.Sprintf("Dear %v\n,We're excited to welcome you to Learning Plan Tracker! Thank you for signing in with name %v and role %v. Happy Learning...", u.Name, u.Name, u.Role)
+
+	alerts.SendEmail(u.Email, subject, content)
 
 	response := pb.User{Id: id, Name: u.Name, Email: u.Email, Role: u.Role}
 	return &pb.AddUserResponse{
@@ -78,6 +85,34 @@ func (s *LearningPlanTrackerServer) CreateAssignment(ctx context.Context, req *p
 		log.Println("Error", err.Error())
 		return nil, err
 	}
+
+	courseName, err := s.DB.GetCourseNameById(ca.CourseId)
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+
+	mentor, err := s.DB.GetUserDetails(ca.MentorId)
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+
+	mentee, err := s.DB.GetUserDetails(ca.MenteeId)
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+
+	mentorSubject := fmt.Sprintf("Mentee Assignment Notification for %v", courseName)
+	mentorContent := fmt.Sprintf("Dear %v\n,I hope this message finds you well. We are pleased to inform you that you have been selected as the mentor for %v in the upcoming %v course. Your expertise and experience make you an ideal mentor for this course, and we believe your guidance will greatly benefit %v.", mentor.Name, mentee.Name, courseName, mentee.Name)
+
+	alerts.SendEmail(mentor.Email, mentorSubject, mentorContent)
+
+	menteeSubject := fmt.Sprintf("Mentor Assignment Notification for %v", courseName)
+	menteeContent := fmt.Sprintf("Dear %v\n,We hope this message finds you well. We are excited to inform you that %v has been assigned as your mentor for the upcoming %v course. %v comes highly recommended and brings valuable expertise to guide you through this learning journey.", mentee.Name, mentor.Name, courseName, mentor.Name)
+
+	alerts.SendEmail(mentee.Email, menteeSubject, menteeContent)
 
 	response := pb.CourseAssignment{
 		Id:       id,

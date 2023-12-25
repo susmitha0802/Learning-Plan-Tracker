@@ -15,6 +15,22 @@ func (db DBClient) AddCourse(course models.Course) (int32, error) {
 	return int32(course.ID), nil
 }
 
+func (db DBClient) GetCourseNameById(id int32) (string, error) {
+	var name string
+
+	res := db.DB.
+		Table("courses").
+		Select("name").
+		Where("id = ?", id).
+		Find(&name)
+
+	if res.RowsAffected == 0 || res.Error != nil {
+		return "", res.Error
+	}
+
+	return name, nil
+}
+
 func (db DBClient) AddTopic(topic models.Topic) (int32, error) {
 	res := db.DB.Create(&topic)
 
