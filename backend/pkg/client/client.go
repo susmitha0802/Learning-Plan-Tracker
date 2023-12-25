@@ -30,7 +30,7 @@ func main() {
 	// AddExercise(client)
 	// ListCourses(client)
 	// GetTotalNoOfExercices(client)
-	// AddUser(client)
+	AddUser(client)
 	// GetUserEmail(client)
 	// ListUsersByRole(client)
 	// CreateAssignment(client)
@@ -41,7 +41,7 @@ func main() {
 	// SubmitExercise(client)
 	// DeleteExercise(client)
 	// GetSubmittedExercise(client)
-	GetProgress(client)
+	// GetProgress(client)
 	// ListAssignedMenteesAndCourses(client)
 	// ListSubmittedExercisesByMentee(client)
 }

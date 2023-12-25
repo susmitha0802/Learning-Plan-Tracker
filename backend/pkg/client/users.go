@@ -9,11 +9,10 @@ import (
 
 func AddUser(client pb.LearningPlanTrackerServiceClient) {
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-
 	for _, user := range users {
 
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
 		res, err := client.AddUser(ctx, &pb.AddUserRequest{User: user})
 
 		if err != nil {

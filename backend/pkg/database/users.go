@@ -16,6 +16,19 @@ func (db DBClient) AddUser(user models.User) (int32, error) {
 	return int32(user.ID), nil
 }
 
+func (db DBClient) GetUserDetails(userId int32) (models.User, error) {
+	user := models.User{}
+	res := db.DB.
+		Where("id = ?", userId).
+		Find(&user)
+
+	if res.RowsAffected == 0 {
+		return user, errors.New("There is no user")
+	}
+
+	return user, res.Error
+}
+
 func (db DBClient) GetUserEmail(userId int32) (string, error) {
 	var user_email string
 	res := db.DB.

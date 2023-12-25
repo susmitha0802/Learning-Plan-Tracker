@@ -139,7 +139,6 @@ func (s *LearningPlanTrackerServer) GetAssignedCourseAndMentorDetails(ctx contex
 func (s *LearningPlanTrackerServer) SubmitExercise(ctx context.Context, req *pb.SubmitExerciseRequest) (*pb.SubmitExerciseResponse, error) {
 
 	MenteeEmail := req.Sed.GetMenteeEmail()
-
 	MenteeId, err := s.DB.GetUserIdByEmail(MenteeEmail)
 
 	if err != nil {
