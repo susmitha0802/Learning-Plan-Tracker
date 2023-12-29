@@ -36,20 +36,27 @@ func (s *LearningPlanTrackerServer) AddUser(ctx context.Context, req *pb.AddUser
 	}, nil
 }
 
-func (s *LearningPlanTrackerServer) GetUserEmail(ctx context.Context, req *pb.GetUserEmailRequest) (*pb.GetUserEmailResponse, error) {
+func (s *LearningPlanTrackerServer) GetUserDetails(ctx context.Context, req *pb.GetUserDetailsRequest) (*pb.GetUserDetailsResponse, error) {
 	log.Println("Get user request received")
 
 	id := req.GetId()
 
-	email, err := s.DB.GetUserEmail(id)
+	user, err := s.DB.GetUserDetails(id)
 
 	if err != nil {
 		log.Println("Error", err.Error())
 		return nil, err
 	}
 
-	return &pb.GetUserEmailResponse{
-		Email: email,
+	response := pb.User{
+		Id:    id,
+		Name:  user.Name,
+		Email: user.Email,
+		Role:  user.Role,
+	}
+
+	return &pb.GetUserDetailsResponse{
+		User: &response,
 	}, nil
 }
 

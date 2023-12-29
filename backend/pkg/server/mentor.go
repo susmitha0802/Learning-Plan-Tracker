@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"errors"
 	"log"
 	pb "lpt/pkg/proto"
 )
@@ -14,7 +13,7 @@ func (s *LearningPlanTrackerServer) ListAssignedMenteesAndCourses(ctx context.Co
 	mentorId, err := s.DB.GetUserIdByEmail(mentorEmail)
 
 	if err != nil {
-		return nil, errors.New("Mentee Id not found")
+		return nil, err
 	}
 
 	log.Println("Get assigned mentee and courses request received")

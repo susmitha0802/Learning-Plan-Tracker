@@ -10,7 +10,7 @@ import (
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
-func SendEmail(recieverEmail string, subject string, content string) {
+var SendEmail = func (recieverEmail string, subject string, content string) {
 	err := godotenv.Load("/home/susmitha/Desktop/pet-project/lpt/backend/.env")
 	if err != nil {
 		log.Fatalf("Error loading .env file %v", err)

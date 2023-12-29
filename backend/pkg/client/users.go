@@ -27,14 +27,14 @@ func AddUser(client pb.LearningPlanTrackerServiceClient) {
 	}
 }
 
-func GetUserEmail(client pb.LearningPlanTrackerServiceClient) {
+func GetUserDetails(client pb.LearningPlanTrackerServiceClient) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	userId := 56
+	userId := 21
 
-	res, err := client.GetUserEmail(ctx, &pb.GetUserEmailRequest{Id: int32(userId)})
+	res, err := client.GetUserDetails(ctx, &pb.GetUserDetailsRequest{Id: int32(userId)})
 
 	if err != nil {
 		log.Fatalf("Could not create: %v", err)
