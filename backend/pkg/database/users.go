@@ -29,21 +29,6 @@ func (db DBClient) GetUserDetails(userId int32) (models.User, error) {
 	return user, res.Error
 }
 
-func (db DBClient) GetUserEmail(userId int32) (string, error) {
-	var user_email string
-	res := db.DB.
-		Table("users").
-		Select("email").
-		Where("id = ?", userId).
-		Find(&user_email)
-
-	if res.RowsAffected == 0 {
-		return "", errors.New("There is no user")
-	}
-
-	return user_email, res.Error
-}
-
 func (db DBClient) ListUsersByRole(roleId int32) ([]string, error) {
 	user_names := []string{}
 	res := db.DB.

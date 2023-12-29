@@ -14,7 +14,7 @@ service LearningPlanTrackerService {
 
     rpc AddUser(AddUserRequest) returns (AddUserResponse);
 
-    rpc GetUserEmail(GetUserEmailRequest) returns (GetUserEmailResponse);
+    rpc GetUserDetails(GetUserDetailsRequest) returns (GetUserDetailsResponse);
 
     rpc ListUsersByRole(ListUsersByRoleRequest) returns (ListUsersByRoleResponse);
 
@@ -98,9 +98,10 @@ message MenteeAndCourseDetails {
 message SubmitExerciseDetails {
     int32 id = 1;
     string mentee_email = 2;
-    int32 exercise_id = 3;
-    string file_name = 4;
-    string file = 5;
+    int32 course_id = 3;
+    int32 exercise_id = 4;
+    string file_name = 5;
+    string file = 6;
 }
 
 message SubmittedExercisesDetails {
@@ -149,12 +150,12 @@ message AddUserResponse{
     User user = 1;
 }
 
-message GetUserEmailRequest {
+message GetUserDetailsRequest {
     int32 id =1;
 }
 
-message GetUserEmailResponse{
-    string email = 1;
+message GetUserDetailsResponse{
+    User user = 1;
 }
 
 message ListUsersByRoleRequest {

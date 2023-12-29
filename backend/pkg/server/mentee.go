@@ -3,7 +3,9 @@ package server
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
+	"lpt/pkg/alerts"
 	"lpt/pkg/models"
 	pb "lpt/pkg/proto"
 )
@@ -81,14 +83,14 @@ func (s *LearningPlanTrackerServer) GetAssignedCourseAndMentorDetails(ctx contex
 	courseId := req.GetCourseId()
 	menteeEmail := req.GetMenteeEmail()
 
-	mentorEmail, err := s.DB.GetAssignedCourseAndMentorDetails(courseId, menteeEmail)
+	mentor, err := s.DB.GetAssignedMentorDetails(courseId, menteeEmail)
 
 	if err != nil {
 		log.Println("Error", err.Error())
 		return nil, err
 	}
 
-	if mentorEmail == "" {
+	if mentor == nil {
 		log.Println("Assignment not found")
 		return nil, errors.New("Assignment not found")
 	}
@@ -132,7 +134,7 @@ func (s *LearningPlanTrackerServer) GetAssignedCourseAndMentorDetails(ctx contex
 
 	return &pb.GetAssignedCourseAndMentorDetailsResponse{
 		Cd:          &cd,
-		MentorEmail: mentorEmail,
+		MentorEmail: mentor.Email,
 	}, nil
 }
 
@@ -160,6 +162,24 @@ func (s *LearningPlanTrackerServer) SubmitExercise(ctx context.Context, req *pb.
 		log.Println("Error", err.Error())
 		return nil, err
 	}
+
+	courseId := 1
+	mentee, err := s.DB.GetUserDetails(submit_exercise.MenteeId)
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+
+	mentor, err := s.DB.GetAssignedMentorDetails(int32(courseId), mentee.Email)
+	if err != nil {
+		log.Println("Error", err.Error())
+		return nil, err
+	}
+	
+	subject := fmt.Sprintf("New Exercise Submission from %v", mentee.Name)
+	content := fmt.Sprintf("Dear %v, I hope this message finds you well. We wanted to inform you that %v has submitted a new exercise.Please take a moment to review the submission and provide feedback to support %v's learning journey. ", mentor.Name, mentee.Name, mentee.Name)
+
+	alerts.SendEmail(mentor.Email, subject, content)
 
 	return &pb.SubmitExerciseResponse{
 		Id: id,
@@ -241,3 +261,4 @@ func (s *LearningPlanTrackerServer) GetProgress(ctx context.Context, req *pb.Get
 		Progress: res,
 	}, nil
 }
+

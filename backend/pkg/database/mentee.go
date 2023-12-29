@@ -42,13 +42,13 @@ func (db DBClient) GetAssignedCourseDetailsByCourseId(courseId int32) (models.Co
 	return c, res.Error
 }
 
-func (db DBClient) GetAssignedCourseAndMentorDetails(courseId int32, menteeEmail string) (string, error) {
+func (db DBClient) GetAssignedMentorDetails(courseId int32, menteeEmail string) (*models.User, error) {
 	c := models.CoursesAssigned{}
 
 	menteeId, err := db.GetUserIdByEmail(menteeEmail)
 
 	if err != nil {
-		return "", errors.New("User Id not found")
+		return nil, errors.New("User Id not found")
 	}
 
 	res := db.DB.
@@ -57,9 +57,9 @@ func (db DBClient) GetAssignedCourseAndMentorDetails(courseId int32, menteeEmail
 		Find(&c)
 
 	if res.RowsAffected == 0 || res.Error != nil {
-		return "", res.Error
+		return nil, res.Error
 	}
-	return c.Mentor.Email, res.Error
+	return &c.Mentor, res.Error
 }
 
 func (db DBClient) SubmitExercise(submit_exercise models.SubmittedExercises) (int32, error) {

@@ -27,7 +27,7 @@ type LearningPlanTrackerServiceClient interface {
 	AddExercise(ctx context.Context, in *AddExerciseRequest, opts ...grpc.CallOption) (*AddExerciseResponse, error)
 	ListCourses(ctx context.Context, in *ListCoursesRequest, opts ...grpc.CallOption) (*ListCoursesResponse, error)
 	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error)
-	GetUserEmail(ctx context.Context, in *GetUserEmailRequest, opts ...grpc.CallOption) (*GetUserEmailResponse, error)
+	GetUserDetails(ctx context.Context, in *GetUserDetailsRequest, opts ...grpc.CallOption) (*GetUserDetailsResponse, error)
 	ListUsersByRole(ctx context.Context, in *ListUsersByRoleRequest, opts ...grpc.CallOption) (*ListUsersByRoleResponse, error)
 	CreateAssignment(ctx context.Context, in *CreateAssignmentRequest, opts ...grpc.CallOption) (*CreateAssignmentResponse, error)
 	ListCurrentAssignments(ctx context.Context, in *ListCurrentAssignmentsRequest, opts ...grpc.CallOption) (*ListCurrentAssignmentsResponse, error)
@@ -95,9 +95,9 @@ func (c *learningPlanTrackerServiceClient) AddUser(ctx context.Context, in *AddU
 	return out, nil
 }
 
-func (c *learningPlanTrackerServiceClient) GetUserEmail(ctx context.Context, in *GetUserEmailRequest, opts ...grpc.CallOption) (*GetUserEmailResponse, error) {
-	out := new(GetUserEmailResponse)
-	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetUserEmail", in, out, opts...)
+func (c *learningPlanTrackerServiceClient) GetUserDetails(ctx context.Context, in *GetUserDetailsRequest, opts ...grpc.CallOption) (*GetUserDetailsResponse, error) {
+	out := new(GetUserDetailsResponse)
+	err := c.cc.Invoke(ctx, "/LearningPlanTrackerService/GetUserDetails", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ type LearningPlanTrackerServiceServer interface {
 	AddExercise(context.Context, *AddExerciseRequest) (*AddExerciseResponse, error)
 	ListCourses(context.Context, *ListCoursesRequest) (*ListCoursesResponse, error)
 	AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error)
-	GetUserEmail(context.Context, *GetUserEmailRequest) (*GetUserEmailResponse, error)
+	GetUserDetails(context.Context, *GetUserDetailsRequest) (*GetUserDetailsResponse, error)
 	ListUsersByRole(context.Context, *ListUsersByRoleRequest) (*ListUsersByRoleResponse, error)
 	CreateAssignment(context.Context, *CreateAssignmentRequest) (*CreateAssignmentResponse, error)
 	ListCurrentAssignments(context.Context, *ListCurrentAssignmentsRequest) (*ListCurrentAssignmentsResponse, error)
@@ -256,8 +256,8 @@ func (UnimplementedLearningPlanTrackerServiceServer) ListCourses(context.Context
 func (UnimplementedLearningPlanTrackerServiceServer) AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUser not implemented")
 }
-func (UnimplementedLearningPlanTrackerServiceServer) GetUserEmail(context.Context, *GetUserEmailRequest) (*GetUserEmailResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserEmail not implemented")
+func (UnimplementedLearningPlanTrackerServiceServer) GetUserDetails(context.Context, *GetUserDetailsRequest) (*GetUserDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserDetails not implemented")
 }
 func (UnimplementedLearningPlanTrackerServiceServer) ListUsersByRole(context.Context, *ListUsersByRoleRequest) (*ListUsersByRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListUsersByRole not implemented")
@@ -399,20 +399,20 @@ func _LearningPlanTrackerService_AddUser_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LearningPlanTrackerService_GetUserEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserEmailRequest)
+func _LearningPlanTrackerService_GetUserDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserDetailsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LearningPlanTrackerServiceServer).GetUserEmail(ctx, in)
+		return srv.(LearningPlanTrackerServiceServer).GetUserDetails(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/LearningPlanTrackerService/GetUserEmail",
+		FullMethod: "/LearningPlanTrackerService/GetUserDetails",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LearningPlanTrackerServiceServer).GetUserEmail(ctx, req.(*GetUserEmailRequest))
+		return srv.(LearningPlanTrackerServiceServer).GetUserDetails(ctx, req.(*GetUserDetailsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -661,8 +661,8 @@ var LearningPlanTrackerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LearningPlanTrackerService_AddUser_Handler,
 		},
 		{
-			MethodName: "GetUserEmail",
-			Handler:    _LearningPlanTrackerService_GetUserEmail_Handler,
+			MethodName: "GetUserDetails",
+			Handler:    _LearningPlanTrackerService_GetUserDetails_Handler,
 		},
 		{
 			MethodName: "ListUsersByRole",
