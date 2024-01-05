@@ -3,7 +3,6 @@ package server
 import (
 	"context"
 	"errors"
-	"lpt/pkg/database"
 	"lpt/pkg/models"
 	pb "lpt/pkg/proto"
 	"reflect"
@@ -17,7 +16,7 @@ func TestAddCourse(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -109,7 +108,7 @@ func TestAddTopic(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -195,7 +194,7 @@ func TestAddExercise(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -276,7 +275,7 @@ func TestListCourses(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}

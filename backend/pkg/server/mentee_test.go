@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"lpt/pkg/alerts"
-	"lpt/pkg/database"
 	"lpt/pkg/models"
 	pb "lpt/pkg/proto"
 	"reflect"
@@ -18,7 +17,7 @@ func TestListAssignedCourses(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -87,7 +86,7 @@ func TestGetAssignedCourseDetailsByCourseId(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -194,7 +193,7 @@ func TestGetAssignedCourseAndMentorDetails(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -350,7 +349,7 @@ func TestSubmitExercise(t *testing.T) {
 		alerts.SendEmail = originalSendEmail
 	}()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -541,7 +540,7 @@ func TestDeleteExercise(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -649,7 +648,7 @@ func TestGetSubmittedExercise(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -741,7 +740,7 @@ func TestGetProgress(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}

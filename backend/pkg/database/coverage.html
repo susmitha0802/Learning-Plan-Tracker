@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>database: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">lpt/pkg/database/courses.go (72.2%)</option>
+				
+				<option value="file1">lpt/pkg/database/mentee.go (100.0%)</option>
+				
+				<option value="file2">lpt/pkg/database/mentor.go (100.0%)</option>
+				
+				<option value="file3">lpt/pkg/database/users.go (100.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package database
+
+import (
+        "log"
+        "lpt/pkg/models"
+)
+
+func (db DBClient) AddCourse(course models.Course) (int32, error) <span class="cov8" title="1">{
+        res := db.DB.Create(&amp;course)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return 0, res.Error
+        }</span>
+
+        <span class="cov8" title="1">return int32(course.ID), nil</span>
+}
+
+func (db DBClient) GetCourseNameById(id int32) (string, error) <span class="cov8" title="1">{
+        var name string
+
+        res := db.DB.
+                Table("courses").
+                Select("name").
+                Where("id = ?", id).
+                Find(&amp;name)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return "", res.Error
+        }</span>
+
+        <span class="cov8" title="1">return name, nil</span>
+}
+
+func (db DBClient) AddTopic(topic models.Topic) (int32, error) <span class="cov8" title="1">{
+        res := db.DB.Create(&amp;topic)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return 0, res.Error
+        }</span>
+
+        <span class="cov8" title="1">return int32(topic.ID), nil</span>
+}
+
+func (db DBClient) AddExercise(exercise models.Exercise) (int32, error) <span class="cov8" title="1">{
+        res := db.DB.Create(&amp;exercise)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return 0, res.Error
+        }</span>
+
+        <span class="cov8" title="1">return int32(exercise.ID), nil</span>
+}
+
+func (db DBClient) ListCourses() <span class="cov0" title="0">{
+        courses := []models.Course{}
+        db.DB.
+                Preload("Topic").
+                Preload("Topic.Exercise").
+                Find(&amp;courses)
+        for _, c := range courses </span><span class="cov0" title="0">{
+                log.Println(c)
+                for _, t := range c.Topic </span><span class="cov0" title="0">{
+                        log.Println(t)
+                        log.Println("exerices", t.Exercise)
+                        for _, e := range t.Exercise </span><span class="cov0" title="0">{
+                                log.Println(e)
+                        }</span>
+                }
+                <span class="cov0" title="0">log.Println()</span>
+        }
+}
+
+func (db DBClient) ListExerciseIds(course_id int32) ([]int32, error) <span class="cov8" title="1">{
+        course := models.Course{}
+        res := db.DB.
+                Preload("Topic").
+                Preload("Topic.Exercise").
+                Where("id = ?", course_id).
+                Find(&amp;course)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return nil, res.Error
+        }</span>
+
+        <span class="cov8" title="1">exercise_Ids := []int32{}
+
+        for _, topic := range course.Topic </span><span class="cov8" title="1">{
+                for _, exercise := range topic.Exercise </span><span class="cov8" title="1">{
+                        exercise_Ids = append(exercise_Ids, int32(exercise.ID))
+                }</span>
+        }
+
+        <span class="cov8" title="1">return exercise_Ids, nil</span>
+}
+
+
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package database
+
+import (
+        "errors"
+        "log"
+        "lpt/pkg/models"
+        "slices"
+)
+
+func (db DBClient) ListAssignedCourses(userEmail string) ([]int32, error) <span class="cov8" title="1">{
+        c := []models.CoursesAssigned{}
+
+        menteeId, err := db.GetUserIdByEmail(userEmail)
+
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, errors.New("User Id not found")
+        }</span>
+
+        <span class="cov8" title="1">res := db.DB.
+                Preload("Mentee").
+                Preload("Course").
+                Where("mentee_id = ?", menteeId).
+                Find(&amp;c)
+
+        coursesId := []int32{}
+
+        for _, v := range c </span><span class="cov8" title="1">{
+                coursesId = append(coursesId, v.CourseId)
+        }</span>
+
+        <span class="cov8" title="1">return coursesId, res.Error</span>
+}
+
+func (db DBClient) GetAssignedCourseDetailsByCourseId(courseId int32) (models.Course, error) <span class="cov8" title="1">{
+        c := models.Course{}
+        res := db.DB.
+                Preload("Topic").
+                Preload("Topic.Exercise").
+                Where("id = ?", courseId).
+                Find(&amp;c)
+
+        return c, res.Error
+}</span>
+
+func (db DBClient) GetAssignedMentorDetails(courseId int32, menteeEmail string) (*models.User, error) <span class="cov8" title="1">{
+        c := models.CoursesAssigned{}
+
+        menteeId, err := db.GetUserIdByEmail(menteeEmail)
+
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, errors.New("User Id not found")
+        }</span>
+
+        <span class="cov8" title="1">res := db.DB.
+                Preload("Mentor").
+                Where("mentee_id = ? AND course_id = ?", menteeId, courseId).
+                Find(&amp;c)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return nil, res.Error
+        }</span>
+        <span class="cov8" title="1">return &amp;c.Mentor, res.Error</span>
+}
+
+func (db DBClient) SubmitExercise(submit_exercise models.SubmittedExercises) (int32, error) <span class="cov8" title="1">{
+        res := db.DB.Create(&amp;submit_exercise)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return 0, res.Error
+        }</span>
+
+        <span class="cov8" title="1">return int32(submit_exercise.ID), nil</span>
+}
+
+func (db DBClient) DeleteExercise(mentee_id int32, exercise_id int32) (string, error) <span class="cov8" title="1">{
+        res := db.DB.
+                Where("mentee_id = ? AND exercise_id = ?", mentee_id, exercise_id).
+                Delete(&amp;models.SubmittedExercises{})
+
+        if res.Error != nil </span><span class="cov8" title="1">{
+                log.Println("Error", res.Error)
+                return "", res.Error
+        }</span>
+
+        <span class="cov8" title="1">log.Println(res.RowsAffected)
+        if res.RowsAffected == 0 </span><span class="cov8" title="1">{
+                if res.Error == nil </span><span class="cov8" title="1">{
+                        return "Already deleted / No record found to delete", nil
+                }</span>
+        }
+
+        <span class="cov8" title="1">return "Deleted successfully", nil</span>
+}
+
+func (db DBClient) GetSubmittedExercise(mentee_id int32, exercise_id int32) (string, string, error) <span class="cov8" title="1">{
+        submitted_exercises := models.SubmittedExercises{}
+        res := db.DB.
+                Where("mentee_id = ? AND exercise_id = ?", mentee_id, exercise_id).
+                Find(&amp;submitted_exercises)
+
+        if res.Error != nil </span><span class="cov8" title="1">{
+                log.Println("Error", res.Error)
+                return "", "", res.Error
+        }</span>
+
+        <span class="cov8" title="1">return submitted_exercises.FileName, submitted_exercises.File, nil</span>
+}
+
+func (db DBClient) ListSubmittedExercises(mentee_id int32) ([]models.SubmittedExercises, error) <span class="cov8" title="1">{
+        submittedExercises := []models.SubmittedExercises{}
+        res := db.DB.
+                Preload("Exercise").
+                Where("mentee_id = ?", mentee_id).
+                Find(&amp;submittedExercises)
+
+        log.Println(submittedExercises, res.RowsAffected)
+
+        if res.Error != nil </span><span class="cov8" title="1">{
+                log.Println("Error", res.Error)
+                return nil, res.Error
+        }</span>
+
+        <span class="cov8" title="1">if len(submittedExercises) == 0 </span><span class="cov8" title="1">{
+                return nil, nil
+        }</span>
+
+        <span class="cov8" title="1">return submittedExercises, nil</span>
+}
+
+func (db DBClient) GetProgress(mentee_id int32, course_id int32) (int32, error) <span class="cov8" title="1">{
+        exercise_Ids, err := db.ListExerciseIds(course_id)
+        if err != nil </span><span class="cov8" title="1">{
+                return 0, err
+        }</span>
+
+        <span class="cov8" title="1">total := len(exercise_Ids)
+        log.Println("total", total)
+
+        submittedExercises, err := db.ListSubmittedExercises(mentee_id)
+        if err != nil </span><span class="cov8" title="1">{
+                return 0, err
+        }</span>
+
+        <span class="cov8" title="1">count := 0
+        for _, submittedExercise := range submittedExercises </span><span class="cov8" title="1">{
+                if slices.Contains(exercise_Ids, submittedExercise.ExerciseId) </span><span class="cov8" title="1">{
+                        count = count + 1
+
+                }</span>
+        }
+
+        <span class="cov8" title="1">return int32(count * 100 / total), nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package database
+
+import (
+        "lpt/pkg/models"
+        "slices"
+)
+
+func (db DBClient) ListAssignedMenteesAndCourses(mentor_id int32) ([]string, []int32, []int32, error) <span class="cov8" title="1">{
+        assigned_details := []models.CoursesAssigned{}
+        res := db.DB.
+                Where("mentor_id = ?", mentor_id).
+                Find(&amp;assigned_details)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return nil, nil, nil, res.Error
+        }</span>
+
+        <span class="cov8" title="1">menteeEmails := []string{}
+        menteeIds := []int32{}
+        courseIds := []int32{}
+
+        for _, assigned_detail := range assigned_details </span><span class="cov8" title="1">{
+                var menteeEmail string
+                res := db.DB.
+                        Table("users").
+                        Select("email").
+                        Where("id = ?", assigned_detail.MenteeId).
+                        Find(&amp;menteeEmail)
+
+                if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                        return nil, nil, nil, res.Error
+                }</span>
+
+                <span class="cov8" title="1">menteeEmails = append(menteeEmails, menteeEmail)
+                menteeIds = append(menteeIds, assigned_detail.MenteeId)
+                courseIds = append(courseIds, assigned_detail.CourseId)</span>
+        }
+
+        <span class="cov8" title="1">return menteeEmails, menteeIds, courseIds, nil</span>
+}
+
+func (db DBClient) ListSubmittedExercisesByMentee(mentee_id int32, course_id int32) ([]models.ListSubmittedExercisesByMentee, error) <span class="cov8" title="1">{
+        exercise_Ids, err := db.ListExerciseIds(course_id)
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, err
+        }</span>
+
+        <span class="cov8" title="1">submittedExercises, err := db.ListSubmittedExercises(mentee_id)
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, err
+        }</span>
+
+        <span class="cov8" title="1">var submittedExerciseDetails []models.ListSubmittedExercisesByMentee
+
+        for _, submittedExercise := range submittedExercises </span><span class="cov8" title="1">{
+                if slices.Contains(exercise_Ids, submittedExercise.ExerciseId) </span><span class="cov8" title="1">{
+                        submittedExerciseDetails = append(submittedExerciseDetails,
+                                models.ListSubmittedExercisesByMentee{
+                                        ExerciseId: submittedExercise.ExerciseId,
+                                        FileName:   submittedExercise.FileName,
+                                        File:       submittedExercise.File,
+                                        Question:   submittedExercise.Exercise.Question,
+                                })
+                }</span>
+        }
+
+        <span class="cov8" title="1">return submittedExerciseDetails, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package database
+
+import (
+        "errors"
+        "log"
+        "lpt/pkg/models"
+)
+
+func (db DBClient) AddUser(user models.User) (int32, error) <span class="cov8" title="1">{
+        res := db.DB.Create(&amp;user)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return 0, res.Error
+        }</span>
+
+        <span class="cov8" title="1">return int32(user.ID), nil</span>
+}
+
+func (db DBClient) GetUserDetails(userId int32) (models.User, error) <span class="cov8" title="1">{
+        user := models.User{}
+        res := db.DB.
+                Where("id = ?", userId).
+                Find(&amp;user)
+
+        if res.RowsAffected == 0 </span><span class="cov8" title="1">{
+                return user, errors.New("There is no user")
+        }</span>
+
+        <span class="cov8" title="1">return user, res.Error</span>
+}
+
+func (db DBClient) ListUsersByRole(roleId int32) ([]string, error) <span class="cov8" title="1">{
+        user_names := []string{}
+        res := db.DB.
+                Table("users").
+                Select("users.name").
+                Where("users.role = ?", roleId).
+                Find(&amp;user_names)
+
+        for _, n := range user_names </span><span class="cov8" title="1">{
+                log.Println(n)
+        }</span>
+
+        <span class="cov8" title="1">return (user_names), res.Error</span>
+}
+
+func (db DBClient) CreateAssignment(a models.CoursesAssigned) (int32, error) <span class="cov8" title="1">{
+        res := db.DB.Create(&amp;a)
+
+        if res.RowsAffected == 0 || res.Error != nil </span><span class="cov8" title="1">{
+                return 0, res.Error
+        }</span>
+
+        <span class="cov8" title="1">return int32(a.ID), nil</span>
+}
+
+func (db DBClient) ListCurrentAssignments() ([]models.CoursesAssigned, error) <span class="cov8" title="1">{
+        c := []models.CoursesAssigned{}
+        res := db.DB.
+                Preload("Mentor").
+                Preload("Mentee").
+                Preload("Course").
+                Find(&amp;c)
+
+        return c, res.Error
+}</span>
+
+func (db DBClient) GetUserIdByEmail(userEmail string) (int32, error) <span class="cov8" title="1">{
+
+        var userId int32
+
+        res := db.DB.Table("users").
+                Select("id").
+                Where("email = ?", userEmail).
+                Find(&amp;userId)
+
+        return userId, res.Error
+}</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

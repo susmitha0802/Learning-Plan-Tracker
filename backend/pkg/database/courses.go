@@ -93,23 +93,4 @@ func (db DBClient) ListExerciseIds(course_id int32) ([]int32, error) {
 	return exercise_Ids, nil
 }
 
-func (db DBClient) ListSubmittedExercises(mentee_id int32) ([]models.SubmittedExercises, error) {
-	submittedExercises := []models.SubmittedExercises{}
-	res := db.DB.
-		Preload("Exercise").
-		Where("mentee_id = ?", mentee_id).
-		Find(&submittedExercises)
 
-	if res.RowsAffected == 0 {
-		if res.Error == nil {
-			return nil, nil
-		}
-	}
-
-	if res.Error != nil {
-		log.Println("Error", res.Error)
-		return nil, res.Error
-	}
-
-	return submittedExercises, nil
-}

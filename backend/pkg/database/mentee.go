@@ -77,15 +77,16 @@ func (db DBClient) DeleteExercise(mentee_id int32, exercise_id int32) (string, e
 		Where("mentee_id = ? AND exercise_id = ?", mentee_id, exercise_id).
 		Delete(&models.SubmittedExercises{})
 
+	if res.Error != nil {
+		log.Println("Error", res.Error)
+		return "", res.Error
+	}
+
+	log.Println(res.RowsAffected)
 	if res.RowsAffected == 0 {
 		if res.Error == nil {
 			return "Already deleted / No record found to delete", nil
 		}
-	}
-
-	if res.Error != nil {
-		log.Println("Error", res.Error)
-		return "", res.Error
 	}
 
 	return "Deleted successfully", nil
@@ -103,6 +104,27 @@ func (db DBClient) GetSubmittedExercise(mentee_id int32, exercise_id int32) (str
 	}
 
 	return submitted_exercises.FileName, submitted_exercises.File, nil
+}
+
+func (db DBClient) ListSubmittedExercises(mentee_id int32) ([]models.SubmittedExercises, error) {
+	submittedExercises := []models.SubmittedExercises{}
+	res := db.DB.
+		Preload("Exercise").
+		Where("mentee_id = ?", mentee_id).
+		Find(&submittedExercises)
+
+	log.Println(submittedExercises, res.RowsAffected)
+
+	if res.Error != nil {
+		log.Println("Error", res.Error)
+		return nil, res.Error
+	}
+
+	if len(submittedExercises) == 0 {
+		return nil, nil
+	}
+
+	return submittedExercises, nil
 }
 
 func (db DBClient) GetProgress(mentee_id int32, course_id int32) (int32, error) {

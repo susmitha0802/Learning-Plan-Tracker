@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"lpt/pkg/alerts"
-	"lpt/pkg/database"
 	"lpt/pkg/models"
 	pb "lpt/pkg/proto"
 	"reflect"
@@ -22,7 +21,7 @@ func TestAddUser(t *testing.T) {
 		alerts.SendEmail = originalSendEmail
 	}()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -103,7 +102,7 @@ func TestGetUserDetails(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -180,7 +179,7 @@ func TestListUsersByRole(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -257,7 +256,7 @@ func TestCreateAssignment(t *testing.T) {
 		alerts.SendEmail = originalSendEmail
 	}()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
@@ -442,7 +441,7 @@ func TestListCurrentAssignments(t *testing.T) {
 
 	defer controller.Finish()
 
-	mockDb := database.NewMockDatabase(controller)
+	mockDb := NewMockDatabase(controller)
 	mockServer := LearningPlanTrackerServer{
 		DB: mockDb,
 	}
