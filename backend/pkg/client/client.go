@@ -25,13 +25,13 @@ func main() {
 
 	client := pb.NewLearningPlanTrackerServiceClient(conn)
 
-	// AddCourse(client)
+	AddCourse(client)
 	// AddTopic(client)
 	// AddExercise(client)
 	// ListCourses(client)
 	// GetTotalNoOfExercices(client)
 	// AddUser(client)
-	GetUserDetails(client)
+	// GetUserDetails(client)
 	// ListUsersByRole(client)
 	// CreateAssignment(client)
 	// ListCurrentAssignments(client)

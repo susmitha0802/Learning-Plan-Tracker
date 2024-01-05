@@ -3,6 +3,7 @@ module lpt
 go 1.21.4
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.1
 	github.com/golang/mock v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/sendgrid/sendgrid-go v3.14.0+incompatible
